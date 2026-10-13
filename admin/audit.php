@@ -8,8 +8,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
 ?>
 <div class="card">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">🔍</div>Log Aktivitas Admin (100 Terakhir)</div>
-    <div style="font-size:12px;color:var(--gray-400)">Semua aktivitas admin tercatat di sini</div>
+    <div class="card-title"><?= icon('activity') ?> Log Aktivitas Admin (100 Terakhir)</div>
+    <div style="font-size:12px;color:var(--gray-400)">Audit trail keamanan dan operasional sistem</div>
   </div>
   <div class="tbl-wrap">
     <table class="tbl">

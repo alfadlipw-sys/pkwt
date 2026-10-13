@@ -52,28 +52,32 @@ $listKaryawan=$db->query("SELECT id,nik,nama,jabatan FROM karyawan WHERE is_acti
 $pageTitle='Buat Link Penilaian'; $activePage='token';
 require_once __DIR__ . '/../includes/admin_header.php';
 ?>
-<?php if($msg): ?><div class="alert alert-success"><span class="alert-icon">✅</span> <?= $msg ?></div><?php endif; ?>
-<?php if($err): ?><div class="alert alert-error"><span class="alert-icon">⚠️</span> <?= $err ?></div><?php endif; ?>
+<?php if($msg): ?><div class="alert alert-success"><?= icon('check-circle') ?> <?= $msg ?></div><?php endif; ?>
+<?php if($err): ?><div class="alert alert-error"><?= icon('alert-triangle') ?> <?= $err ?></div><?php endif; ?>
 
 <?php if($newLink):
   $waTextSingle="Yth. Bapak/Ibu,\n\nBerikut link Form Penilaian Kinerja PKWT.\n\nLink:\n{$newLink}\n\nSilakan isi sebelum kadaluarsa.\n\nTerima kasih,\nHRD Indopelita";
   $wa='https://wa.me/?text='.rawurlencode($waTextSingle);
 ?>
-<div style="background:var(--blue-pale);border:1.5px solid #bfdbfe;border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:22px;">
-  <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px;">🔗 Link Penilaian Berhasil Dibuat!</div>
-  <div style="font-size:12.5px;color:var(--gray-500);margin-bottom:12px;">Salin dan kirim ke penilai (atasan). Link hanya bisa digunakan <strong>satu kali</strong> dan akan kadaluarsa sesuai jadwal.</div>
+<div style="background:var(--blue-pale);border:1px solid #bfdbfe;border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:16px;">
+  <div style="font-size:13.5px;font-weight:700;color:var(--blue);margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+    <?= icon('link') ?> Link Penilaian Berhasil Dibuat!
+  </div>
+  <div style="font-size:12px;color:var(--gray-500);margin-bottom:10px;">Salin dan kirim ke penilai (atasan). Link hanya bisa digunakan <strong>satu kali</strong> dan akan kadaluarsa sesuai jadwal.</div>
   <div class="link-box"><?= e($newLink) ?></div>
-  <div style="display:flex;gap:8px;margin-top:12px;">
-    <button onclick="copyLink('<?= e($newLink) ?>')" class="btn btn-navy btn-sm">📋 Salin Link</button>
-    <a href="<?= e($wa) ?>" target="_blank" class="btn btn-success btn-sm">💬 Kirim WhatsApp</a>
+  <div style="display:flex;gap:6px;margin-top:10px;">
+    <button onclick="copyLink('<?= e($newLink) ?>')" class="btn btn-navy btn-sm"><?= icon('copy') ?> Salin Link</button>
+    <a href="<?= e($wa) ?>" target="_blank" class="btn btn-success btn-sm"><?= icon('message') ?> Kirim WhatsApp</a>
   </div>
 </div>
 <?php endif; ?>
 
 <?php if(!empty($newLinks)): ?>
-<div style="background:var(--blue-pale);border:1.5px solid #bfdbfe;border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:22px;">
-  <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px;">🔗 <?= count($newLinks) ?> Link Penilaian Berhasil Dibuat!</div>
-  <div style="font-size:12.5px;color:var(--gray-500);margin-bottom:12px;">Salin dan kirim ke masing-masing penilai (atasan). Setiap link hanya bisa digunakan satu kali.</div>
+<div style="background:var(--blue-pale);border:1px solid #bfdbfe;border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:16px;">
+  <div style="font-size:13.5px;font-weight:700;color:var(--blue);margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+    <?= icon('link') ?> <?= count($newLinks) ?> Link Penilaian Berhasil Dibuat!
+  </div>
+  <div style="font-size:12px;color:var(--gray-500);margin-bottom:10px;">Salin dan kirim ke masing-masing penilai (atasan). Setiap link hanya bisa digunakan satu kali.</div>
   <div class="tbl-wrap">
     <table class="tbl">
       <thead><tr><th>Karyawan</th><th>Link</th><th>Aksi</th></tr></thead>
@@ -87,8 +91,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <td><div class="link-box" style="font-size:11px"><?= e($nl['link']) ?></div></td>
           <td>
             <div style="display:flex;gap:4px;">
-              <button onclick="copyLink('<?= e($nl['link']) ?>')" class="btn btn-navy btn-xs" title="Salin">📋</button>
-              <a href="<?= e($wa3) ?>" target="_blank" class="btn btn-success btn-xs">💬</a>
+              <button onclick="copyLink('<?= e($nl['link']) ?>')" class="btn btn-navy btn-xs" title="Salin"><?= icon('copy') ?></button>
+              <a href="<?= e($wa3) ?>" target="_blank" class="btn btn-success btn-xs" title="WhatsApp"><?= icon('message') ?></a>
             </div>
           </td>
         </tr>
@@ -99,11 +103,12 @@ require_once __DIR__ . '/../includes/admin_header.php';
 </div>
 <?php endif; ?>
 
-<div style="display:grid;grid-template-columns:310px 1fr;gap:22px;align-items:flex-start;">
+<div style="display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:flex-start;">
   <div class="form-card">
-    <div class="form-card-header">🔗 Buat Link Penilaian Baru</div>
-    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);padding:10px 14px;font-size:12px;color:#92400e;margin-bottom:16px;">
-      💡 Link bersifat <strong>unik & rahasia</strong> — hanya bisa diisi satu kali.
+    <div class="form-card-header"><?= icon('link') ?> Buat Link Penilaian Baru</div>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:8px 12px;font-size:11.5px;color:#92400e;margin-bottom:14px;display:flex;align-items:flex-start;gap:6px;">
+      <?= icon('info') ?>
+      <div>Link bersifat <strong>unik & rahasia</strong> — hanya bisa diisi satu kali.</div>
     </div>
     <form method="POST">
       <input type="hidden" name="aksi" value="buat">
@@ -144,7 +149,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
             <option value="14">14 hari</option><option value="30">30 hari</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">🔗 Generate Link</button>
+        <button type="submit" class="btn btn-primary btn-block"><?= icon('link') ?> Generate Link</button>
       </div>
     </form>
   </div>
@@ -165,7 +170,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><div class="card-title-icon">📋</div>Semua Link Penilaian</div>
+      <div class="card-title"><?= icon('clipboard') ?> Semua Link Penilaian</div>
       <?php if($filter): ?><a href="token.php" class="btn btn-light btn-sm">Lihat Semua</a><?php endif; ?>
     </div>
     <div class="tbl-wrap">
@@ -185,23 +190,23 @@ require_once __DIR__ . '/../includes/admin_header.php';
             <td style="font-size:12px;color:var(--gray-600)"><?= e($r['atasan_langsung'] ?: '-') ?></td>
             <td style="font-size:12px;color:<?= $isExp?'var(--red)':'var(--gray-500)' ?>">
               <?= date('d/m/Y',strtotime($r['expires_at'])) ?>
-              <?php if($isExp): ?><br><span class="badge badge-red" style="font-size:10px">Kadaluarsa</span><?php endif; ?>
+              <?php if($isExp): ?><br><span class="badge badge-red" style="font-size:10px"><span class="badge-dot"></span> Kadaluarsa</span><?php endif; ?>
             </td>
             <td>
               <?php if($r['is_submitted']): ?>
-                <span class="badge badge-green">✅ Sudah Diisi</span>
+                <span class="badge badge-green"><span class="badge-dot"></span> Sudah Diisi</span>
                 <?php if($r['submitted_at']): ?><div style="font-size:10px;color:var(--gray-400);margin-top:2px"><?= date('d/m/Y H:i',strtotime($r['submitted_at'])) ?></div><?php endif; ?>
-              <?php elseif($isExp): ?><span class="badge badge-red">⏰ Kadaluarsa</span>
-              <?php else: ?><span class="badge badge-amber">⏳ Menunggu</span><?php endif; ?>
+              <?php elseif($isExp): ?><span class="badge badge-red"><span class="badge-dot"></span> Kadaluarsa</span>
+              <?php else: ?><span class="badge badge-amber"><span class="badge-dot"></span> Menunggu</span><?php endif; ?>
             </td>
             <td>
               <div style="display:flex;gap:4px;flex-wrap:wrap;">
                 <?php if(!$r['is_submitted']&&!$isExp): ?>
-                  <button onclick="copyLink('<?= e($link) ?>')" class="btn btn-light btn-xs" title="Salin">🔗</button>
-                  <a href="<?= e($wa2) ?>" target="_blank" class="btn btn-success btn-xs">💬</a>
+                  <button onclick="copyLink('<?= e($link) ?>')" class="btn btn-light btn-xs" title="Salin Link"><?= icon('copy') ?></button>
+                  <a href="<?= e($wa2) ?>" target="_blank" class="btn btn-success btn-xs" title="Kirim WhatsApp"><?= icon('message') ?></a>
                 <?php endif; ?>
-                <?php if($r['is_submitted']): ?><a href="detail_penilaian.php?id=<?= $r['id'] ?>" class="btn btn-primary btn-xs">👁</a><?php endif; ?>
-                <?php if(!$r['is_submitted']): ?><a href="?hapus=<?= $r['id'] ?>" class="btn btn-danger btn-xs" onclick="return confirm('Hapus?')">✕</a><?php endif; ?>
+                <?php if($r['is_submitted']): ?><a href="detail_penilaian.php?id=<?= $r['id'] ?>" class="btn btn-primary btn-xs" title="Lihat Detail"><?= icon('eye') ?></a><?php endif; ?>
+                <?php if(!$r['is_submitted']): ?><a href="?hapus=<?= $r['id'] ?>" class="btn btn-danger btn-xs" title="Hapus" onclick="return confirm('Hapus link ini?')"><?= icon('trash') ?></a><?php endif; ?>
               </div>
             </td>
           </tr>

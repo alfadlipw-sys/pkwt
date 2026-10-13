@@ -55,9 +55,9 @@ body {
 
 .login-shell {
   width: 100%;
-  max-width: 920px;
+  max-width: 820px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 14px;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
   overflow: hidden;
   display: flex;
@@ -69,7 +69,7 @@ body {
 .login-hero {
   flex: 1.1;
   background: #090e1a;
-  padding: 48px 42px;
+  padding: 38px 34px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -80,57 +80,57 @@ body {
 .hero-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+  gap: 10px;
+  margin-bottom: 28px;
 }
 .hero-brand img {
-  height: 32px;
+  height: 28px;
   filter: brightness(0) invert(1);
 }
 .hero-badge {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #93c5fd;
   background: rgba(29, 78, 216, 0.25);
   border: 1px solid rgba(147, 197, 253, 0.2);
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 2.5px 7px;
+  border-radius: 5px;
 }
 
 .hero-title {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
   color: #f8fafc;
   line-height: 1.25;
-  letter-spacing: -0.025em;
-  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
 }
 .hero-desc {
-  font-size: 13.5px;
+  font-size: 12.5px;
   color: #94a3b8;
-  line-height: 1.65;
-  margin-bottom: 32px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
 .hero-feature-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 .hero-feature-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 13px;
+  gap: 10px;
+  font-size: 12px;
   color: #cbd5e1;
 }
 .hero-icon-check {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
   background: rgba(5, 150, 105, 0.2);
   border: 1px solid rgba(5, 150, 105, 0.35);
   color: #34d399;
@@ -140,23 +140,23 @@ body {
   flex-shrink: 0;
 }
 .hero-icon-check svg {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   stroke-width: 2.5;
 }
 
 .hero-footer {
-  font-size: 11px;
+  font-size: 10.5px;
   color: #475569;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 20px;
-  margin-top: 36px;
+  padding-top: 16px;
+  margin-top: 28px;
 }
 
 /* Right Form */
 .login-form-pane {
   flex: 1;
-  padding: 50px 46px;
+  padding: 38px 36px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -164,31 +164,31 @@ body {
 }
 
 .pane-header {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 .pane-title {
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.02em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .pane-sub {
-  font-size: 13.5px;
+  font-size: 12.5px;
   color: #64748b;
 }
 
 .form-field {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 .field-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 .field-label-text {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #334155;
   letter-spacing: 0.02em;
@@ -201,18 +201,18 @@ body {
 }
 .input-icon-lead {
   position: absolute;
-  left: 12px;
-  width: 18px;
-  height: 18px;
+  left: 11px;
+  width: 16px;
+  height: 16px;
   color: #94a3b8;
   pointer-events: none;
 }
 .custom-input {
   width: 100%;
-  padding: 10px 14px 10px 40px;
+  padding: 8px 12px 8px 36px;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 13.5px;
+  border-radius: 7px;
+  font-size: 13px;
   font-family: inherit;
   color: #0f172a;
   background: #fff;
@@ -230,10 +230,10 @@ body {
 
 .btn-toggle-view {
   position: absolute;
-  right: 10px;
+  right: 8px;
   background: none;
   border: none;
-  padding: 6px;
+  padding: 5px;
   color: #94a3b8;
   cursor: pointer;
   display: flex;
@@ -245,18 +245,18 @@ body {
   color: #475569;
 }
 .btn-toggle-view svg {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
 }
 
 .btn-submit-action {
   width: 100%;
-  padding: 11px 18px;
+  padding: 9px 16px;
   background: #1d4ed8;
   color: #ffffff;
   border: 1px solid #1e40af;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 7px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -329,7 +329,7 @@ body {
   <div class="login-hero">
     <div>
       <div class="hero-brand">
-        <img src="<?= APP_URL ?>/assets/img/logo.svg" alt="Indopelita" onerror="this.src='<?= APP_URL ?>/assets/img/logo.png'">
+        <img src="<?= APP_URL ?>/assets/img/logo.svg" alt="Indopelita" onerror="this.src='<?= APP_URL ?>/assets/img/logo_indopelita.jpg'">
         <span class="hero-badge">Enterprise HRD</span>
       </div>
 

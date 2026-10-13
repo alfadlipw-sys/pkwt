@@ -58,7 +58,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 
 <?php if (isset($_GET['deleted'])): ?>
 <div class="alert alert-success" style="margin-bottom:18px">
-  <span class="alert-icon">✅</span>
+  <?= icon('check-circle') ?>
   <div>Memo berhasil dihapus dari sistem.</div>
 </div>
 <?php endif; ?>
@@ -66,43 +66,51 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <!-- ── STATS ── -->
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px;">
 
-  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-    <div style="width:44px;height:44px;background:#eff6ff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">📄</div>
+  <div class="metric-card">
+    <div class="metric-icon-wrap" style="background:var(--blue-pale);color:var(--blue);">
+      <?= icon('file-text') ?>
+    </div>
     <div>
-      <div style="font-size:26px;font-weight:900;color:var(--blue);line-height:1"><?= $statTotal ?></div>
-      <div style="font-size:12px;color:var(--gray-500);margin-top:2px">Total Memo</div>
+      <div class="metric-value" style="color:var(--blue)"><?= $statTotal ?></div>
+      <div class="metric-label">Total Memo</div>
     </div>
   </div>
 
-  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-    <div style="width:44px;height:44px;background:#fff7ed;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">⏳</div>
+  <div class="metric-card">
+    <div class="metric-icon-wrap" style="background:var(--amber-light);color:var(--amber);">
+      <?= icon('clock') ?>
+    </div>
     <div>
-      <div style="font-size:26px;font-weight:900;color:var(--amber);line-height:1"><?= $noBelumMemo ?></div>
-      <div style="font-size:12px;color:var(--gray-500);margin-top:2px">Perlu Dibuat Memo</div>
+      <div class="metric-value" style="color:var(--amber)"><?= $noBelumMemo ?></div>
+      <div class="metric-label">Perlu Dibuat Memo</div>
     </div>
   </div>
 
-  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-    <div style="width:44px;height:44px;background:#fef2f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">🗂️</div>
+  <div class="metric-card">
+    <div class="metric-icon-wrap" style="background:var(--red-light);color:var(--red);">
+      <?= icon('file') ?>
+    </div>
     <div>
-      <div style="font-size:26px;font-weight:900;color:#ef4444;line-height:1"><?= $statBelumCetak ?></div>
-      <div style="font-size:12px;color:var(--gray-500);margin-top:2px">Belum Dicetak</div>
+      <div class="metric-value" style="color:var(--red)"><?= $statBelumCetak ?></div>
+      <div class="metric-label">Belum Dicetak</div>
     </div>
   </div>
 
-  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-    <div style="width:44px;height:44px;background:#f0fdf4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">🖨️</div>
+  <div class="metric-card">
+    <div class="metric-icon-wrap" style="background:var(--green-light);color:var(--green);">
+      <?= icon('printer') ?>
+    </div>
     <div>
-      <div style="font-size:26px;font-weight:900;color:var(--green);line-height:1"><?= $statDicetak ?></div>
-      <div style="font-size:12px;color:var(--gray-500);margin-top:2px">Sudah Dicetak</div>
+      <div class="metric-value" style="color:var(--green)"><?= $statDicetak ?></div>
+      <div class="metric-label">Sudah Dicetak</div>
     </div>
   </div>
 
 </div>
 
 <?php if ($noBelumMemo > 0): ?>
-<div class="alert alert-warning" style="background:#fffbeb;border-color:#fde68a;color:#92400e;margin-bottom:18px;">
-  <span class="alert-icon">⚠️</span>
+<div class="alert alert-warning" style="margin-bottom:18px;">
+  <?= icon('alert-triangle') ?>
   <div>
     <strong><?= $noBelumMemo ?> karyawan DIPERPANJANG belum memiliki memo.</strong>
     <a href="<?= APP_URL ?>/admin/penilaian.php?status=Diperpanjang" style="color:#b45309;margin-left:8px;text-decoration:underline">Lihat daftarnya →</a>
@@ -125,27 +133,27 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:5px">Status Penilaian</div>
       <select name="status" class="form-control" style="width:170px">
         <option value="">Semua Status</option>
-        <option value="Diperpanjang"     <?= $fStatus==='Diperpanjang'?'selected':'' ?>>✅ Diperpanjang</option>
-        <option value="Tidak Diperpanjang" <?= $fStatus==='Tidak Diperpanjang'?'selected':'' ?>>❌ Tidak Diperpanjang</option>
+        <option value="Diperpanjang"     <?= $fStatus==='Diperpanjang'?'selected':'' ?>>Diperpanjang</option>
+        <option value="Tidak Diperpanjang" <?= $fStatus==='Tidak Diperpanjang'?'selected':'' ?>>Tidak Diperpanjang</option>
       </select>
     </div>
     <div>
       <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:5px">Status Cetak</div>
       <select name="cetak" class="form-control" style="width:150px">
         <option value="">Semua</option>
-        <option value="0" <?= $fCetak==='0'?'selected':'' ?>>🗂️ Belum Dicetak</option>
-        <option value="1" <?= $fCetak==='1'?'selected':'' ?>>🖨️ Sudah Dicetak</option>
+        <option value="0" <?= $fCetak==='0'?'selected':'' ?>>Belum Dicetak</option>
+        <option value="1" <?= $fCetak==='1'?'selected':'' ?>>Sudah Dicetak</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary btn-sm" style="align-self:flex-end">🔍 Filter</button>
-    <a href="memo.php" class="btn btn-light btn-sm" style="align-self:flex-end">↩ Reset</a>
+    <button type="submit" class="btn btn-primary btn-sm" style="align-self:flex-end"><?= icon('filter') ?> Filter</button>
+    <a href="memo.php" class="btn btn-light btn-sm" style="align-self:flex-end">Reset</a>
   </form>
 </div>
 
 <!-- ── TABEL MEMO ── -->
 <div class="card">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">📄</div>Daftar Memo Perpanjangan (<?= $total ?>)</div>
+    <div class="card-title"><?= icon('file-text') ?> Daftar Memo Perpanjangan (<?= $total ?>)</div>
     <div style="font-size:12px;color:var(--gray-400)">
       <?php if($search||$fStatus||$fPeriode||$fCetak !== ''): ?>
         Hasil filter · <a href="memo.php" style="color:var(--blue)">Reset</a>
@@ -201,8 +209,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <!-- Status -->
           <td style="text-align:center">
             <?= $r['status_perpanjangan'] === 'Diperpanjang'
-              ? '<span class="badge badge-green">✅ Diperpanjang</span>'
-              : '<span class="badge badge-red">❌ Tidak Diperpanjang</span>' ?>
+              ? '<span class="badge badge-green"><span class="badge-dot"></span> Diperpanjang</span>'
+              : '<span class="badge badge-red"><span class="badge-dot"></span> Tidak Diperpanjang</span>' ?>
             <div style="font-size:11px;color:var(--gray-400);margin-top:2px">Nilai: <strong><?= $r['jumlah_nilai'] ?></strong>/50</div>
           </td>
 
@@ -218,20 +226,20 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <!-- Status cetak -->
           <td style="text-align:center">
             <?= $r['is_printed']
-              ? '<span class="badge badge-green" style="font-size:10px">✓ Dicetak</span>'
-              : '<span class="badge badge-gray" style="font-size:10px">Belum</span>' ?>
+              ? '<span class="badge badge-green" style="font-size:10.5px"><span class="badge-dot"></span> Dicetak</span>'
+              : '<span class="badge badge-gray" style="font-size:10.5px"><span class="badge-dot"></span> Belum</span>' ?>
           </td>
 
           <!-- Aksi -->
           <td>
             <div style="display:flex;gap:4px;flex-wrap:nowrap;">
               <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $r['id'] ?>" target="_blank"
-                 class="btn btn-navy btn-xs" title="Cetak Memo">🖨️</a>
+                 class="btn btn-navy btn-xs" title="Cetak Memo"><?= icon('printer') ?></a>
               <a href="detail_memo.php?id=<?= $r['id'] ?>"
-                 class="btn btn-primary btn-xs" title="Detail">👁</a>
+                 class="btn btn-primary btn-xs" title="Detail"><?= icon('eye') ?></a>
               <a href="hapus_memo.php?id=<?= $r['id'] ?>"
                  class="btn btn-danger btn-xs" title="Hapus"
-                 onclick="return confirm('Hapus memo ini? Tindakan ini tidak dapat dibatalkan.')">🗑</a>
+                 onclick="return confirm('Hapus memo ini? Tindakan ini tidak dapat dibatalkan.')"><?= icon('trash') ?></a>
             </div>
           </td>
         </tr>
@@ -239,8 +247,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
         <?php if ($total === 0): ?>
         <tr>
           <td colspan="10" style="text-align:center;padding:48px;color:var(--gray-400)">
-            <div style="font-size:36px;margin-bottom:12px">📭</div>
-            <div style="font-size:14px;font-weight:600">Belum ada memo perpanjangan</div>
+            <div style="color:var(--gray-300);margin-bottom:12px;display:flex;justify-content:center"><?= icon('file-text', 'nav-icon') ?></div>
+            <div style="font-size:14px;font-weight:600;color:var(--gray-700)">Belum ada memo perpanjangan</div>
             <div style="font-size:12px;margin-top:4px">Memo akan muncul setelah penilai mengisi form penilaian dan memo.</div>
           </td>
         </tr>

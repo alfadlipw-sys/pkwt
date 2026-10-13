@@ -324,15 +324,15 @@ $diff_avg   = $avg_nilai - $avg_lalu;
 /* ── HEADER ──────────────────────────────────────────────────── */
 .db-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 0 1rem;
+    padding: 0.6rem 0 0.75rem;
     border-bottom: 0.5px solid var(--border);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.1rem;
 }
-.db-header h1 { font-size: 20px; font-weight: 600; }
-.db-header p  { font-size: 13px; color: var(--gray-400); margin-top: 3px; }
-.db-period-pills { display: flex; gap: 6px; }
+.db-header h1 { font-size: 17px; font-weight: 700; }
+.db-header p  { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+.db-period-pills { display: flex; gap: 5px; }
 .pill-btn {
-    font-size: 12px; padding: 5px 14px; border-radius: 20px; cursor: pointer;
+    font-size: 11.5px; padding: 4px 12px; border-radius: 20px; cursor: pointer;
     border: 1px solid var(--border); background: transparent;
     color: var(--gray-500); transition: all .15s;
 }
@@ -344,28 +344,28 @@ $diff_avg   = $avg_nilai - $avg_lalu;
 /* ── KPI GRID ────────────────────────────────────────────────── */
 .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 .kpi-card {
     background: var(--white);
     border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
+    border-radius: 9px;
+    padding: 12px 14px;
     position: relative;
     overflow: hidden;
 }
 .kpi-label {
-    font-size: 11px; color: var(--gray-400);
+    font-size: 10.5px; color: var(--gray-400);
     text-transform: uppercase; letter-spacing: .05em;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .kpi-value {
-    font-size: 28px; font-weight: 700; line-height: 1;
-    color: var(--gray-700);
+    font-size: 22px; font-weight: 700; line-height: 1.1;
+    color: var(--gray-800);
 }
-.kpi-value span { font-size: 16px; font-weight: 400; }
+.kpi-value span { font-size: 14px; font-weight: 400; }
 .kpi-badge {
     display: inline-flex; align-items: center; gap: 3px;
     font-size: 10px; font-weight: 600;

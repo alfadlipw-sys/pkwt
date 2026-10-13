@@ -44,10 +44,9 @@ require_once __DIR__ . '/../includes/admin_header.php';
   <!-- Export Card -->
   <div class="form-card">
     <div class="form-card-header">
-      <svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Ekspor Data ke CSV / Excel
+      <?= icon('download') ?> Ekspor Data ke CSV / Excel
     </div>
-    <p style="font-size:13px;color:var(--gray-500);margin-bottom:20px;line-height:1.6">Unduh seluruh data penilaian dalam format CSV yang bisa dibuka di Microsoft Excel.</p>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:20px;line-height:1.6">Unduh seluruh data penilaian dalam format CSV yang kompatibel dengan Microsoft Excel & Google Sheets.</p>
     <form method="GET" style="display:flex;flex-direction:column;gap:13px;">
       <input type="hidden" name="export" value="csv">
       <div class="form-group">
@@ -62,18 +61,18 @@ require_once __DIR__ . '/../includes/admin_header.php';
         <label class="form-label">Filter Status (opsional)</label>
         <select name="status" class="form-control">
           <option value="">Semua Status</option>
-          <option value="Diperpanjang" <?= ($_GET['status']??'')==='Diperpanjang'?'selected':'' ?>>✅ Diperpanjang</option>
-          <option value="Tidak Diperpanjang" <?= ($_GET['status']??'')==='Tidak Diperpanjang'?'selected':'' ?>>❌ Tidak Diperpanjang</option>
+          <option value="Diperpanjang" <?= ($_GET['status']??'')==='Diperpanjang'?'selected':'' ?>>Diperpanjang</option>
+          <option value="Tidak Diperpanjang" <?= ($_GET['status']??'')==='Tidak Diperpanjang'?'selected':'' ?>>Tidak Diperpanjang</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-success btn-block">📊 Download CSV (<?= $totalAll ?> data)</button>
+      <button type="submit" class="btn btn-success btn-block"><?= icon('download') ?> Download CSV (<?= $totalAll ?> data)</button>
     </form>
   </div>
 
   <!-- Rekap Jabatan -->
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><div class="card-title-icon">📈</div>Rekap per Jabatan</div>
+      <div class="card-title"><?= icon('bar-chart') ?> Rekap per Jabatan</div>
     </div>
     <table class="tbl">
       <thead><tr><th>Jabatan</th><th style="text-align:center">Total</th><th style="text-align:center">Rata-rata</th><th style="text-align:center">Lulus</th></tr></thead>
@@ -95,7 +94,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <!-- Rekap per Bulan -->
 <div class="card" style="margin-bottom:22px;">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">📆</div>Rekap per Bulan Penilaian</div>
+    <div class="card-title"><?= icon('calendar') ?> Rekap per Bulan Penilaian</div>
   </div>
   <table class="tbl">
     <thead>
@@ -116,7 +115,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
         <td style="text-align:center"><span class="badge badge-blue"><?= $r['jml'] ?></span></td>
         <td style="text-align:center"><span class="badge badge-green"><?= $r['lanjut'] ?></span></td>
         <td style="text-align:center"><span class="badge badge-red"><?= $r['tidak'] ?></span></td>
-        <td style="text-align:center;font-weight:800;font-size:16px;color:<?= $r['avg_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= number_format($r['avg_nilai'],1) ?></td>
+        <td style="text-align:center;font-weight:800;font-size:15px;color:<?= $r['avg_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= number_format($r['avg_nilai'],1) ?></td>
         <td style="text-align:center">
           <div style="display:flex;align-items:center;gap:8px;justify-content:center;">
             <div style="width:60px;background:var(--gray-100);border-radius:99px;height:6px;">
@@ -127,8 +126,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
         </td>
         <td>
           <div style="display:flex;gap:5px;">
-            <a href="penilaian.php?bulan=<?= urlencode($r['bln']) ?>" class="btn btn-primary btn-xs">👁 Lihat</a>
-            <a href="?export=csv&bulan=<?= urlencode($r['bln']) ?>" class="btn btn-success btn-xs">⬇ CSV</a>
+            <a href="penilaian.php?bulan=<?= urlencode($r['bln']) ?>" class="btn btn-primary btn-xs"><?= icon('eye') ?> Lihat</a>
+            <a href="?export=csv&bulan=<?= urlencode($r['bln']) ?>" class="btn btn-outline btn-xs"><?= icon('download') ?> CSV</a>
           </div>
         </td>
       </tr>
@@ -140,7 +139,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <!-- Rekap per Periode -->
 <div class="card">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">📅</div>Rekap per Periode Penilaian</div>
+    <div class="card-title"><?= icon('clock') ?> Rekap per Periode Penilaian</div>
   </div>
   <table class="tbl">
     <thead>
@@ -161,7 +160,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
         <td style="text-align:center"><span class="badge badge-blue"><?= $r['jml'] ?></span></td>
         <td style="text-align:center"><span class="badge badge-green"><?= $r['lanjut'] ?></span></td>
         <td style="text-align:center"><span class="badge badge-red"><?= $r['tidak'] ?></span></td>
-        <td style="text-align:center;font-weight:800;font-size:16px;color:<?= $r['avg_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= number_format($r['avg_nilai'],1) ?></td>
+        <td style="text-align:center;font-weight:800;font-size:15px;color:<?= $r['avg_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= number_format($r['avg_nilai'],1) ?></td>
         <td style="text-align:center">
           <div style="display:flex;align-items:center;gap:8px;justify-content:center;">
             <div style="width:60px;background:var(--gray-100);border-radius:99px;height:6px;">
@@ -172,8 +171,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
         </td>
         <td>
           <div style="display:flex;gap:5px;">
-            <a href="penilaian.php?periode=<?= urlencode($r['periode']) ?>" class="btn btn-primary btn-xs">👁 Lihat</a>
-            <a href="?export=csv&periode=<?= urlencode($r['periode']) ?>" class="btn btn-success btn-xs">⬇ CSV</a>
+            <a href="penilaian.php?periode=<?= urlencode($r['periode']) ?>" class="btn btn-primary btn-xs"><?= icon('eye') ?> Lihat</a>
+            <a href="?export=csv&periode=<?= urlencode($r['periode']) ?>" class="btn btn-outline btn-xs"><?= icon('download') ?> CSV</a>
           </div>
         </td>
       </tr>

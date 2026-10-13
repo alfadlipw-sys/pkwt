@@ -40,13 +40,13 @@ $admins=$db->query("SELECT * FROM hr_admin ORDER BY created_at ASC");
 $pageTitle='Manajemen Admin'; $activePage='admin_mgmt';
 require_once __DIR__ . '/../includes/admin_header.php';
 ?>
-<?php if($msg): ?><div class="alert alert-success"><span class="alert-icon">✅</span> <?= $msg ?></div><?php endif; ?>
-<?php if($err): ?><div class="alert alert-error"><span class="alert-icon">⚠️</span> <?= e($err) ?></div><?php endif; ?>
+<?php if($msg): ?><div class="alert alert-success"><?= icon('check-circle') ?> <?= $msg ?></div><?php endif; ?>
+<?php if($err): ?><div class="alert alert-error"><?= icon('alert-triangle') ?> <?= e($err) ?></div><?php endif; ?>
 
 <div style="display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:flex-start;">
 
   <div class="form-card">
-    <div class="form-card-header">➕ Tambah Admin Baru</div>
+    <div class="form-card-header"><?= icon('user-cog') ?> Tambah Admin Baru</div>
     <form method="POST">
       <input type="hidden" name="aksi" value="tambah">
       <div class="form-grid" style="gap:12px;">
@@ -55,13 +55,13 @@ require_once __DIR__ . '/../includes/admin_header.php';
         <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-control"></div>
         <div class="form-group"><label class="form-label">Password <span class="req">*</span></label><input type="password" name="password" class="form-control" required minlength="8"></div>
         <div class="form-group"><label class="form-label">Konfirmasi Password <span class="req">*</span></label><input type="password" name="confirm" class="form-control" required></div>
-        <button type="submit" class="btn btn-primary btn-block">Tambah Admin</button>
+        <button type="submit" class="btn btn-primary btn-block"><?= icon('plus') ?> Tambah Admin</button>
       </div>
     </form>
   </div>
 
   <div class="card">
-    <div class="card-header"><div class="card-title"><div class="card-title-icon">👤</div>Daftar Admin</div></div>
+    <div class="card-header"><div class="card-title"><?= icon('users') ?> Daftar Admin</div></div>
     <table class="tbl">
       <thead><tr><th>Username</th><th>Nama</th><th>Email</th><th>Login Terakhir</th><th>Status</th><th>Aksi</th></tr></thead>
       <tbody>
@@ -74,16 +74,16 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <td style="font-weight:600"><?= e($a['nama_lengkap']) ?></td>
           <td style="font-size:12px;color:var(--gray-500)"><?= e($a['email']??'-') ?></td>
           <td style="font-size:12px;color:var(--gray-500)"><?= $a['last_login']?date('d/m/Y H:i',strtotime($a['last_login'])):'Belum pernah' ?></td>
-          <td><?= $a['is_active']?'<span class="badge badge-green">Aktif</span>':'<span class="badge badge-red">Nonaktif</span>' ?></td>
+          <td><?= $a['is_active']?'<span class="badge badge-green"><span class="badge-dot"></span> Aktif</span>':'<span class="badge badge-red"><span class="badge-dot"></span> Nonaktif</span>' ?></td>
           <td>
             <?php if(!$isSelf): ?>
             <div style="display:flex;gap:4px;">
-              <a href="?toggle=<?= $a['id'] ?>" class="btn btn-warning btn-xs" onclick="return confirm('Ubah status admin ini?')"><?= $a['is_active']?'🔒':'🔓' ?></a>
-              <button class="btn btn-light btn-xs" onclick="showReset(<?= $a['id'] ?>,'<?= e($a['nama_lengkap']) ?>')">🔑</button>
-              <a href="?hapus=<?= $a['id'] ?>" class="btn btn-danger btn-xs" onclick="return confirm('Hapus admin ini?')">✕</a>
+              <a href="?toggle=<?= $a['id'] ?>" class="btn btn-warning btn-xs" title="Ubah Status" onclick="return confirm('Ubah status admin ini?')"><?= icon($a['is_active'] ? 'lock' : 'unlock') ?></a>
+              <button class="btn btn-light btn-xs" title="Reset Password" onclick="showReset(<?= $a['id'] ?>,'<?= e($a['nama_lengkap']) ?>')"><?= icon('key') ?></button>
+              <a href="?hapus=<?= $a['id'] ?>" class="btn btn-danger btn-xs" title="Hapus Admin" onclick="return confirm('Hapus admin ini?')"><?= icon('trash') ?></a>
             </div>
             <?php else: ?>
-            <a href="password.php" class="btn btn-light btn-xs">🔑 Ganti PW</a>
+            <a href="password.php" class="btn btn-light btn-xs"><?= icon('key') ?> Ganti PW</a>
             <?php endif; ?>
           </td>
         </tr>
@@ -97,7 +97,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <div class="modal-overlay" id="resetModal">
   <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title">🔑 Reset Password Admin</div>
+      <div class="modal-title" style="display:flex;align-items:center;gap:6px;"><?= icon('key') ?> Reset Password Admin</div>
       <button class="modal-close" onclick="document.getElementById('resetModal').classList.remove('show')">×</button>
     </div>
     <div class="modal-body">

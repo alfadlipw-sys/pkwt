@@ -54,22 +54,24 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <?php if($msg): ?><div class="alert alert-success"><span class="alert-icon">✅</span><?= $msg ?></div><?php endif; ?>
 <?php if($err): ?><div class="alert alert-error"><span class="alert-icon">⚠️</span><?= e($err) ?></div><?php endif; ?>
 
-<div style="display:flex;gap:22px;align-items:flex-start;">
+<div style="display:flex;gap:16px;align-items:flex-start;">
 
   <!-- Form Tambah -->
-  <div class="form-card" style="width:300px;flex-shrink:0;">
-    <div class="form-card-header">➕ Tambah Karyawan</div>
+  <div class="form-card" style="width:290px;flex-shrink:0;">
+    <div class="form-card-header"><?= icon('plus') ?> Tambah Karyawan</div>
     <form method="POST">
       <input type="hidden" name="aksi" value="tambah">
-      <div class="form-grid" style="gap:14px;">
+      <div class="form-grid" style="gap:10px;">
 
         <!-- Cari Spreadsheet: fetch dilakukan JS client-side, tidak lewat server -->
         <style>.sheet-suggestion-item:hover{background:var(--gray-100);}</style>
         <div class="form-group" style="position:relative;">
-          <label class="form-label">📋 Cari dari Spreadsheet</label>
-          <div id="sheetLoadingInfo" style="font-size:12px;color:var(--gray-400);margin-bottom:4px;">⏳ Memuat data...</div>
+          <label class="form-label" style="display:flex;align-items:center;gap:5px;">
+            <?= icon('search') ?> Cari dari Spreadsheet
+          </label>
+          <div id="sheetLoadingInfo" style="font-size:12px;color:var(--gray-400);margin-bottom:4px;">Memuat data spreadsheet...</div>
           <input type="text" id="sheetSearch" class="form-control" placeholder="Ketik NIK atau nama..." autocomplete="off" disabled>
-          <div id="sheetSuggestions" style="display:none;position:absolute;z-index:10;top:100%;left:0;right:0;background:#fff;border:1px solid var(--gray-200);border-radius:6px;max-height:220px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.12);"></div>
+          <div id="sheetSuggestions" style="display:none;position:absolute;z-index:10;top:100%;left:0;right:0;background:#fff;border:1px solid var(--gray-200);border-radius:6px;max-height:220px;overflow-y:auto;box-shadow:var(--shadow-md);"></div>
           <small style="color:var(--gray-400);">Ketik untuk mencari, lalu klik hasil untuk mengisi otomatis.</small>
         </div>
 
@@ -97,7 +99,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <label class="form-label">Mulai Bekerja</label>
           <input type="text" id="f_mulai" name="mulai_bekerja" class="form-control" placeholder="YYYY-MM-DD">
         </div>
-        <button type="submit" class="btn btn-primary btn-block">💾 Simpan Karyawan</button>
+        <button type="submit" class="btn btn-primary btn-block"><?= icon('save') ?> Simpan Karyawan</button>
       </div>
     </form>
   </div>
@@ -192,14 +194,14 @@ require_once __DIR__ . '/../includes/admin_header.php';
   <div style="flex:1;min-width:0;">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">👥 Daftar Karyawan PKWT (<?= $total ?>)</div>
+        <div class="card-title"><?= icon('users') ?> Daftar Karyawan PKWT (<?= $total ?>)</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <form method="GET" style="display:flex;gap:6px;">
             <input type="text" name="q" value="<?= e($search) ?>" placeholder="Cari nama/NIK..." class="form-control" style="width:200px;padding:7px 12px;">
-            <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+            <button type="submit" class="btn btn-primary btn-sm"><?= icon('search') ?> Cari</button>
             <?php if($search): ?><a href="?" class="btn btn-light btn-sm">Reset</a><?php endif; ?>
           </form>
-          <a href="import_karyawan.php" class="btn btn-success btn-sm">⬆️ Import CSV</a>
+          <a href="import_karyawan.php" class="btn btn-outline btn-sm"><?= icon('upload') ?> Import CSV</a>
         </div>
       </div>
       <div class="tbl-wrap">
@@ -224,15 +226,15 @@ require_once __DIR__ . '/../includes/admin_header.php';
                   <span class="badge badge-gray">0</span>
                 <?php endif; ?>
               </td>
-              <td><?= $r['is_active'] ? '<span class="badge badge-green">Aktif</span>' : '<span class="badge badge-red">Nonaktif</span>' ?></td>
+              <td><?= $r['is_active'] ? '<span class="badge badge-green"><span class="badge-dot"></span> Aktif</span>' : '<span class="badge badge-red"><span class="badge-dot"></span> Nonaktif</span>' ?></td>
               <td>
                 <div style="display:flex;gap:4px;">
-                  <a href="edit_karyawan.php?id=<?= $r['id'] ?>" class="btn btn-light btn-xs">✏️</a>
-                  <a href="token.php?karyawan=<?= $r['id'] ?>" class="btn btn-primary btn-xs" title="Buat Link">🔗</a>
+                  <a href="edit_karyawan.php?id=<?= $r['id'] ?>" class="btn btn-light btn-xs" title="Edit Data"><?= icon('edit') ?></a>
+                  <a href="token.php?karyawan=<?= $r['id'] ?>" class="btn btn-primary btn-xs" title="Buat Link Penilaian"><?= icon('link') ?></a>
                   <?php if($r['is_active']): ?>
-                    <a href="?hapus=<?= $r['id'] ?>" class="btn btn-danger btn-xs" onclick="return confirm('Nonaktifkan karyawan ini?')">✕</a>
+                    <a href="?hapus=<?= $r['id'] ?>" class="btn btn-danger btn-xs" title="Nonaktifkan" onclick="return confirm('Nonaktifkan karyawan ini?')"><?= icon('x') ?></a>
                   <?php else: ?>
-                    <a href="?aktif=<?= $r['id'] ?>" class="btn btn-success btn-xs">✓</a>
+                    <a href="?aktif=<?= $r['id'] ?>" class="btn btn-success btn-xs" title="Aktifkan"><?= icon('check') ?></a>
                   <?php endif; ?>
                 </div>
               </td>

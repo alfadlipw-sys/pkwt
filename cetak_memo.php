@@ -46,42 +46,53 @@ $tembusan = array_filter(array_map('trim', explode("\n", $m['tembusan'] ?? '')))
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memo Perpanjangan — <?= e($m['karyawan_nama']) ?></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Times+New+Roman&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
 *{ margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: 'Times New Roman', Times, serif;
   font-size: 11pt;
   color: #000;
-  background: #ccc;
-  padding: 20px;
+  background: #0b1329;
+  padding: 24px 16px;
 }
 
 .print-bar {
-  background: linear-gradient(135deg, #0f2d5c, #1a4a8a);
+  background: #090e1a;
   color: #fff;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
+  max-width: 210mm;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 .print-bar .bar-title {
   font-weight: 600;
   font-size: 13px;
-  opacity: 0.9;
+  color: #e2e8f0;
   flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .bar-actions {
   display: flex;
@@ -91,36 +102,36 @@ body {
 .bar-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
   border: none;
-  font-family: inherit;
-  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s ease;
   white-space: nowrap;
 }
 .bar-btn-download {
-  background: #22c55e;
+  background: #059669;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(34,197,94,0.4);
+  box-shadow: 0 2px 8px rgba(5,150,105,0.3);
 }
-.bar-btn-download:hover { background: #16a34a; }
+.bar-btn-download:hover { background: #047857; }
 .bar-btn-download:active { transform: scale(0.97); }
 .bar-btn-print {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.25);
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid rgba(255,255,255,0.12);
 }
-.bar-btn-print:hover { background: rgba(255,255,255,0.25); }
+.bar-btn-print:hover { background: #334155; }
 .bar-btn-back {
   background: transparent;
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.2);
+  color: #94a3b8;
+  border: 1px solid rgba(255,255,255,0.1);
 }
-.bar-btn-back:hover { color: #fff; }
+.bar-btn-back:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
 /* Spinner saat generating */
 .spinner {
   display: inline-block;
@@ -316,17 +327,17 @@ body {
 </head>
 <body>
 
-<div class="print-bar">
-  <span class="bar-title">📄 Memo — <?= e($m['karyawan_nama']) ?> | <?= e($m['nomor_memo']) ?></span>
+<div class="print-bar no-print">
+  <span class="bar-title"><?= icon('file-text') ?> Memorandum — <?= e($m['karyawan_nama']) ?> &nbsp;&bull;&nbsp; <span style="font-family:monospace;font-size:12px;color:#94a3b8;"><?= e($m['nomor_memo']) ?></span></span>
   <div class="bar-actions">
     <button class="bar-btn bar-btn-download" onclick="downloadPDF()" id="btnDl">
-      📥 Download PDF
+      <?= icon('download') ?> Unduh PDF
     </button>
     <button class="bar-btn bar-btn-print" onclick="window.print()">
-      🖨️ Cetak
+      <?= icon('printer') ?> Cetak Dokumen
     </button>
     <?php if(isAdminLoggedIn()): ?>
-    <button class="bar-btn bar-btn-back" onclick="history.back()">← Kembali</button>
+    <button class="bar-btn bar-btn-back" onclick="history.back()"><?= icon('arrow-left') ?> Kembali</button>
     <?php endif; ?>
   </div>
 </div>
@@ -450,11 +461,11 @@ body {
   <?php endif; ?>
 
   <!-- Footer info kecil (hanya di layar, hidden saat print) -->
-  <div style="position:absolute;bottom:12mm;right:20mm;font-size:7.5pt;color:#bbb;font-family:'Segoe UI',sans-serif;" class="no-print">
-    Nilai Penilaian: <?= $m['jumlah_nilai'] ?>/50 &nbsp;|&nbsp;
+  <div style="position:absolute;bottom:12mm;right:20mm;font-size:8pt;color:#94a3b8;font-family:'Inter',sans-serif;" class="no-print">
+    Nilai Penilaian: <strong style="color:#0f172a;"><?= $m['jumlah_nilai'] ?>/50</strong> &nbsp;|&nbsp;
     <?= $m['status_perpanjangan'] === 'Diperpanjang'
-      ? '<span class="status-badge badge-green">✅ DIPERPANJANG</span>'
-      : '<span class="status-badge badge-red">❌ TIDAK DIPERPANJANG</span>' ?>
+      ? '<span class="badge badge-green" style="font-size:10.5px;padding:3px 10px;"><span class="badge-dot"></span> DIPERPANJANG</span>'
+      : '<span class="badge badge-red" style="font-size:10.5px;padding:3px 10px;"><span class="badge-dot"></span> TIDAK DIPERPANJANG</span>' ?>
   </div>
 
 </div>
@@ -481,7 +492,7 @@ function downloadPDF() {
   };
 
   html2pdf().set(opt).from(el).save().then(function() {
-    btn.innerHTML = '✅ Berhasil!';
+    btn.innerHTML = 'Berhasil Diunduh';
     setTimeout(function() {
       btn.innerHTML = origText;
       btn.disabled = false;

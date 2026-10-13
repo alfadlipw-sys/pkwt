@@ -119,10 +119,14 @@ $autoDownload = isset($_GET['download']) || isset($_GET['auto']);
 <head>
 <meta charset="UTF-8">
 <title>Cetak Penilaian Kinerja PKWT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Times+New+Roman&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Times New Roman',Times,serif;font-size:10pt;background:#ccc;padding:20px;}
-.page{background:#fff;width:210mm;margin:0 auto 20px;padding:14mm 14mm 14mm 18mm;box-shadow:0 2px 12px rgba(0,0,0,.25);page-break-after:always;}
+body{font-family:'Times New Roman',Times,serif;font-size:10pt;background:#0b1329;padding:24px 16px;}
+.page{background:#fff;width:210mm;margin:0 auto 20px;padding:14mm 14mm 14mm 18mm;box-shadow:0 8px 30px rgba(0,0,0,.35);page-break-after:always;border-radius:2px;}
 .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;}
 .d{width:8px;height:8px;background:#c8a428;transform:rotate(45deg);display:inline-block;margin:0 2px;}
 .form-title{font-size:12.5pt;font-weight:bold;text-transform:uppercase;}
@@ -133,17 +137,17 @@ body{font-family:'Times New Roman',Times,serif;font-size:10pt;background:#ccc;pa
 .main-table td{border:1px solid #000;padding:3px 5px;vertical-align:top;}
 .section-row td{background:#e0e0e0;font-weight:bold;}
 .predikat-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:8pt;font-weight:600;}
-.print-bar{position:fixed;top:10px;right:10px;display:flex;gap:8px;z-index:100;}
-.print-btn{background:#1a3a6b;color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-size:14px;font-family:sans-serif;font-weight:600;}
-.download-btn{background:#059669;color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-size:14px;font-family:sans-serif;font-weight:600;display:inline-flex;align-items:center;gap:6px;}
+.print-bar{position:fixed;top:14px;right:16px;display:flex;gap:10px;z-index:100;background:rgba(9,14,26,0.92);backdrop-filter:blur(8px);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 20px rgba(0,0,0,0.35);}
+.print-btn{background:#1e293b;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);padding:8px 16px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+.download-btn{background:#059669;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
 .download-btn:hover{background:#047857;}
-@media print{.print-bar,.page-wrapper-notice{display:none!important;}body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;}}
+@media print{.print-bar,.page-wrapper-notice,.no-print{display:none!important;}body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;border-radius:0;}}
 </style>
 </head>
 <body>
-<div class="print-bar">
-  <button class="print-btn" onclick="window.print()">🖨️ Cetak / Print</button>
-  <button class="download-btn" onclick="window.print()">📄 Download PDF</button>
+<div class="print-bar no-print">
+  <button class="print-btn" onclick="window.print()"><?= icon('printer') ?> Cetak Dokumen</button>
+  <button class="download-btn" onclick="window.print()"><?= icon('download') ?> Simpan PDF</button>
 </div>
 
 <?php foreach ($records as $r):

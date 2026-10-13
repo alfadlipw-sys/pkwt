@@ -38,14 +38,14 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <div style="margin-bottom:16px;">
   <div class="breadcrumb"><a href="karyawan.php">Data Karyawan</a><span class="sep">›</span><span><?= e($kar['nama']) ?></span></div>
 </div>
-<?php if($msg): ?><div class="alert alert-success"><span class="alert-icon">✅</span> <?= $msg ?></div><?php endif; ?>
-<?php if($err): ?><div class="alert alert-error"><span class="alert-icon">⚠️</span> <?= $err ?></div><?php endif; ?>
+<?php if($msg): ?><div class="alert alert-success"><?= icon('check-circle') ?> <?= $msg ?></div><?php endif; ?>
+<?php if($err): ?><div class="alert alert-error"><?= icon('alert-triangle') ?> <?= $err ?></div><?php endif; ?>
 
 <div style="display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:flex-start;">
 
   <div style="display:flex;flex-direction:column;gap:16px;">
     <div class="form-card">
-      <div class="form-card-header">✏️ Edit Data Karyawan</div>
+      <div class="form-card-header"><?= icon('edit') ?> Edit Data Karyawan</div>
       <form method="POST">
         <div class="form-grid" style="gap:13px;">
           <?php foreach([['nik','NIK / No. Pegawai','text',true],['nama','Nama Lengkap','text',true],['jabatan','Jabatan','text',true],['atasan','Atasan Langsung','text',false]] as [$n,$l,$t,$req]): ?>
@@ -59,7 +59,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
             <input type="date" name="mulai_bekerja" class="form-control" value="<?= e($kar['mulai_bekerja']??'') ?>">
           </div>
           <div style="display:flex;gap:8px;">
-            <button type="submit" class="btn btn-primary" style="flex:1">💾 Simpan</button>
+            <button type="submit" class="btn btn-primary" style="flex:1"><?= icon('save') ?> Simpan</button>
             <a href="karyawan.php" class="btn btn-light">Batal</a>
           </div>
         </div>
@@ -67,7 +67,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <div class="divider"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
         <span style="font-size:13px;font-weight:600">Status</span>
-        <?= $kar['is_active']?'<span class="badge badge-green">● Aktif</span>':'<span class="badge badge-red">● Nonaktif</span>' ?>
+        <?= $kar['is_active']?'<span class="badge badge-green"><span class="badge-dot"></span> Aktif</span>':'<span class="badge badge-red"><span class="badge-dot"></span> Nonaktif</span>' ?>
       </div>
       <?php if($kar['is_active']): ?>
         <a href="karyawan.php?hapus=<?= $id ?>" class="btn btn-danger btn-sm btn-block" onclick="return confirm('Nonaktifkan karyawan ini?')">Nonaktifkan</a>
@@ -76,20 +76,25 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <?php endif; ?>
     </div>
 
-    <a href="token.php?karyawan=<?= $id ?>" class="btn btn-primary btn-block">🔗 Buat Link Penilaian</a>
+    <a href="token.php?karyawan=<?= $id ?>" class="btn btn-primary btn-block"><?= icon('link') ?> Buat Link Penilaian</a>
   </div>
 
   <div style="display:flex;flex-direction:column;gap:18px;">
     <!-- Stat cards -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
       <?php foreach([
-        [$riwayat->num_rows,'Total Penilaian','var(--blue)'],
-        [$statRow['lanjut']??0,'Diperpanjang','var(--green)'],
-        [number_format($statRow['avg']??0,1),'Rata-rata Nilai','var(--amber)'],
-      ] as [$v,$l,$c]): ?>
-      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:16px;text-align:center;">
-        <div style="font-size:28px;font-weight:900;color:<?= $c ?>"><?= $v ?></div>
-        <div style="font-size:12px;color:var(--gray-500);margin-top:3px"><?= $l ?></div>
+        [$riwayat->num_rows,'Total Penilaian','var(--blue)','clipboard','var(--blue-pale)'],
+        [$statRow['lanjut']??0,'Diperpanjang','var(--green)','check-circle','var(--green-light)'],
+        [number_format($statRow['avg']??0,1),'Rata-rata Nilai','var(--amber)','bar-chart','var(--amber-light)'],
+      ] as [$v,$l,$c,$ico,$bg]): ?>
+      <div class="metric-card">
+        <div class="metric-icon-wrap" style="background:<?= $bg ?>;color:<?= $c ?>;">
+          <?= icon($ico) ?>
+        </div>
+        <div>
+          <div class="metric-value" style="color:<?= $c ?>"><?= $v ?></div>
+          <div class="metric-label"><?= $l ?></div>
+        </div>
       </div>
       <?php endforeach; ?>
     </div>
@@ -97,7 +102,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
     <!-- Token aktif -->
     <?php if($tokenAktif->num_rows>0): ?>
     <div class="card">
-      <div class="card-header"><div class="card-title"><div class="card-title-icon">⏳</div>Link Aktif Belum Diisi</div></div>
+      <div class="card-header"><div class="card-title"><?= icon('clock') ?> Link Aktif Belum Diisi</div></div>
       <table class="tbl">
         <thead><tr><th>Periode</th><th>Kadaluarsa</th><th>Aksi</th></tr></thead>
         <tbody>
@@ -105,7 +110,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <tr>
             <td><?= e($t['periode']) ?></td>
             <td style="font-size:12px;color:var(--gray-500)"><?= date('d/m/Y H:i',strtotime($t['expires_at'])) ?></td>
-            <td><button onclick="copyLink('<?= e($lnk) ?>')" class="btn btn-light btn-xs">🔗 Salin</button></td>
+            <td><button onclick="copyLink('<?= e($lnk) ?>')" class="btn btn-light btn-xs"><?= icon('copy') ?> Salin</button></td>
           </tr>
           <?php endwhile; ?>
         </tbody>
@@ -115,7 +120,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 
     <!-- Riwayat -->
     <div class="card">
-      <div class="card-header"><div class="card-title"><div class="card-title-icon">📋</div>Riwayat Penilaian</div></div>
+      <div class="card-header"><div class="card-title"><?= icon('clipboard') ?> Riwayat Penilaian</div></div>
       <?php $riwayat->data_seek(0); ?>
       <table class="tbl">
         <thead><tr><th>Periode</th><th style="text-align:center">Nilai</th><th>Status</th><th>Penilai</th><th>Tanggal</th><th></th></tr></thead>
@@ -123,11 +128,11 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <?php while($p=$riwayat->fetch_assoc()): ?>
           <tr>
             <td><?= e($p['periode']) ?></td>
-            <td style="text-align:center"><span style="font-size:20px;font-weight:800;color:<?= $p['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $p['jumlah_nilai'] ?></span></td>
-            <td><?= $p['status_perpanjangan']==='Diperpanjang'?'<span class="badge badge-green">✅</span>':'<span class="badge badge-red">❌</span>' ?></td>
+            <td style="text-align:center"><span style="font-size:18px;font-weight:800;color:<?= $p['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $p['jumlah_nilai'] ?></span></td>
+            <td><?= $p['status_perpanjangan']==='Diperpanjang'?'<span class="badge badge-green"><span class="badge-dot"></span> Diperpanjang</span>':'<span class="badge badge-red"><span class="badge-dot"></span> Tidak</span>' ?></td>
             <td style="font-size:12px"><?= e($p['penilai_nama']) ?></td>
             <td style="font-size:12px;color:var(--gray-500)"><?= formatTanggal($p['tanggal_penilaian']) ?></td>
-            <td><a href="detail_penilaian.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-xs">👁</a></td>
+            <td><a href="detail_penilaian.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-xs" title="Detail"><?= icon('eye') ?></a></td>
           </tr>
           <?php endwhile; ?>
           <?php if($riwayat->num_rows===0): ?><tr><td colspan="6" style="text-align:center;padding:28px;color:var(--gray-400)">Belum ada riwayat penilaian</td></tr><?php endif; ?>

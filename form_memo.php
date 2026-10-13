@@ -233,7 +233,7 @@ $val_par2         = $alreadyMemo['isi_paragraf2'] ?? '';
 <title>Form Memo Perpanjangan Kontrak — <?= e($data['nama']) ?></title>
 <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <style>
-body { background: #e8edf3; padding: 20px; display: block; }
+body { background: var(--bg); padding: 20px; display: block; font-family: 'Plus Jakarta Sans', var(--font-body); }
 
 .page-wrap { max-width: 900px; margin: 0 auto; }
 
@@ -243,154 +243,149 @@ body { background: #e8edf3; padding: 20px; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f2d5c 0%, #1e6fd9 100%);
-  padding: 20px;
+  background: #090e1a;
+  padding: 24px;
 }
 .sukses-card {
   background: #fff;
-  border-radius: 20px;
-  padding: 40px 36px;
+  border-radius: 14px;
+  padding: 32px 28px;
   text-align: center;
   width: 100%;
-  max-width: 520px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  max-width: 460px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 .sukses-icon {
-  width: 80px; height: 80px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  width: 50px; height: 50px;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 36px;
-  box-shadow: 0 8px 24px rgba(22,163,74,0.35);
-  animation: popIn 0.4s ease;
-}
-@keyframes popIn {
-  0%   { transform: scale(0.5); opacity: 0; }
-  80%  { transform: scale(1.1); }
-  100% { transform: scale(1);   opacity: 1; }
+  margin: 0 auto 14px;
 }
 .sukses-title {
-  font-size: 22px; font-weight: 800;
-  color: #0f2d5c; margin-bottom: 8px;
-  font-family: 'Inter', sans-serif;
+  font-size: 18px; font-weight: 800;
+  color: #0f172a; margin-bottom: 4px;
+  letter-spacing: -0.015em;
 }
 .sukses-sub {
-  font-size: 14px; color: #64748b;
-  line-height: 1.7; font-family: 'Inter', sans-serif;
-  margin-bottom: 22px;
+  font-size: 12.5px; color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 18px;
 }
 .info-card {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 22px;
+  border-radius: 10px;
+  padding: 13px 15px;
+  margin-bottom: 18px;
   text-align: left;
-  font-family: 'Inter', sans-serif;
 }
 .info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 12.5px;
   padding: 6px 0;
   border-bottom: 1px solid #f1f5f9;
 }
 .info-row:last-child { border-bottom: none; }
-.info-lbl { color: #94a3b8; }
-.info-val { font-weight: 700; color: #1e293b; }
+.info-lbl { color: #64748b; font-size: 12px; }
+.info-val { font-weight: 700; color: #0f172a; }
 .btn-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .dl-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
   cursor: pointer;
-  border: none;
+  border: 1px solid transparent;
   width: 100%;
 }
 .dl-btn-primary {
-  background: linear-gradient(135deg, #0f2d5c, #1e6fd9);
+  background: var(--navy);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(30,111,217,0.4);
+  border-color: #020617;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-.dl-btn-primary:hover { box-shadow: 0 6px 24px rgba(30,111,217,0.5); transform: translateY(-1px); }
+.dl-btn-primary:hover { background: #1e293b; }
 .dl-btn-outline {
   background: #fff;
-  color: #0f2d5c;
-  border: 2px solid #e2e8f0;
+  color: var(--gray-800);
+  border: 1px solid var(--gray-300);
 }
-.dl-btn-outline:hover { background: #f8fafc; border-color: #1e6fd9; }
+.dl-btn-outline:hover { background: var(--gray-50); border-color: var(--gray-400); }
 .sukses-note {
-  font-size: 11.5px; color: #cbd5e1;
-  margin-top: 20px; font-family: 'Inter', sans-serif;
-  line-height: 1.6;
+  font-size: 11px; color: #94a3b8;
+  margin-top: 16px;
+  line-height: 1.5;
 }
 @media (max-width: 480px) {
-  .sukses-card { padding: 28px 20px; }
-  .sukses-title { font-size: 19px; }
-  .dl-btn { font-size: 14px; padding: 13px 16px; }
+  .sukses-card { padding: 24px 18px; }
+  .sukses-title { font-size: 17px; }
+  .dl-btn { font-size: 12.5px; padding: 8px 14px; }
 }
-
-.page-wrap { max-width: 900px; margin: 0 auto; }
 
 .top-notice {
-  background: linear-gradient(135deg, #0f2d5c, #1e6fd9);
-  color: #fff;
-  border-radius: 12px;
-  padding: 16px 22px;
-  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  box-shadow: var(--shadow-xs);
 }
 .top-notice .step-badge {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-size: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #dbeafe;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
 }
-.top-notice .step-text { font-size: 14px; }
-.top-notice .step-text strong { font-size: 16px; display: block; margin-bottom: 2px; }
+.top-notice .step-text { font-size: 12.5px; color: #475569; }
+.top-notice .step-text strong { font-size: 13.5px; display: block; margin-bottom: 1px; color: #0f172a; }
 
 /* Status bar */
 .status-bar {
   display: flex;
   gap: 6px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 .status-step {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
+  gap: 7px;
+  font-size: 12px;
   font-weight: 600;
 }
 .status-dot {
-  width: 28px; height: 28px;
+  width: 20px; height: 20px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700;
+  font-size: 11px; font-weight: 700;
 }
 .status-dot.done  { background: #16a34a; color: #fff; }
-.status-dot.active{ background: #1e6fd9; color: #fff; }
-.status-dot.idle  { background: #e2e8f0; color: #94a3b8; }
+.status-dot.active{ background: #2563eb; color: #fff; }
+.status-dot.idle  { background: #f1f5f9; color: #94a3b8; border: 1px solid #cbd5e1; }
 .status-line { flex: 1; height: 2px; background: #e2e8f0; }
 .status-line.done { background: #16a34a; }
 
@@ -398,45 +393,46 @@ body { background: #e8edf3; padding: 20px; display: block; }
 .summary-card {
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 18px 22px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 13px 16px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
+  box-shadow: var(--shadow-xs);
 }
 .summary-score {
-  width: 60px; height: 60px;
-  border-radius: 12px;
+  width: 48px; height: 48px;
+  border-radius: 8px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.summary-score .s-num { font-size: 24px; font-weight: 900; line-height: 1; }
-.summary-score .s-lbl { font-size: 9px; font-weight: 600; margin-top: 2px; opacity: 0.8; }
+.summary-score .s-num { font-size: 18px; font-weight: 900; line-height: 1; }
+.summary-score .s-lbl { font-size: 8.5px; font-weight: 600; margin-top: 1px; opacity: 0.8; }
 .summary-info { flex: 1; }
-.summary-name { font-size: 17px; font-weight: 800; color: #0f2d5c; }
-.summary-meta { font-size: 12.5px; color: #64748b; margin-top: 3px; }
+.summary-name { font-size: 14.5px; font-weight: 800; color: #0f172a; }
+.summary-meta { font-size: 11.5px; color: #64748b; margin-top: 2px; }
 .summary-status { flex-shrink: 0; }
 
 /* Form section headers */
 .section-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: 13px;
   font-weight: 700;
-  color: #0f2d5c;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #eff6ff;
+  color: #0f172a;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
 }
 .section-num {
-  width: 26px; height: 26px;
-  background: #1e6fd9;
+  width: 20px; height: 20px;
+  background: #0f172a;
   color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
+  border-radius: 4px;
+  font-size: 10.5px;
   font-weight: 700;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
@@ -510,34 +506,36 @@ body { background: #e8edf3; padding: 20px; display: block; }
 <!-- ═══════════ SUKSES ═══════════ -->
 <div class="sukses-wrap">
   <div class="sukses-card">
-    <div class="sukses-icon">✅</div>
-    <h2 class="sukses-title">Penilaian &amp; Memo Tersimpan!</h2>
+    <div class="sukses-icon" style="background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;width:64px;height:64px;border-radius:50%;">
+      <span style="display:inline-flex;transform:scale(1.3)"><?= icon('check') ?></span>
+    </div>
+    <h2 class="sukses-title">Penilaian &amp; Memo Tersimpan</h2>
     <p class="sukses-sub">
-      Data penilaian dan memo perpanjangan kontrak berhasil dikirimkan ke sistem HRD.
+      Data penilaian dan berkas memo perpanjangan kontrak berhasil diterbitkan ke sistem HRD PT Indopelita.
     </p>
 
     <!-- Info Ringkasan -->
     <div class="info-card">
       <div class="info-row">
-        <span class="info-lbl">👤 Karyawan</span>
+        <span class="info-lbl" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('user') ?> Karyawan</span>
         <span class="info-val"><?= e($data['nama']) ?></span>
       </div>
       <div class="info-row">
-        <span class="info-lbl">📅 Periode</span>
+        <span class="info-lbl" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('calendar') ?> Periode</span>
         <span class="info-val"><?= e($data['periode']) ?></span>
       </div>
       <div class="info-row">
-        <span class="info-lbl">🎯 Total Nilai</span>
-        <span class="info-val" style="color:<?= $diperpanjang?'#16a34a':'#dc2626' ?>">
-          <?= $data['jumlah_nilai'] ?> / 50
+        <span class="info-lbl" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('award') ?> Total Nilai</span>
+        <span class="info-val" style="font-weight:700;color:<?= $diperpanjang?'#059669':'#e11d48' ?>">
+          <?= $data['jumlah_nilai'] ?> / 50 Poin
         </span>
       </div>
       <div class="info-row">
-        <span class="info-lbl">📋 Status</span>
+        <span class="info-lbl" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('clipboard') ?> Status Rekomendasi</span>
         <span class="info-val">
-          <?= $diperpanjang
-            ? '<span style="color:#16a34a">✅ Diperpanjang</span>'
-            : '<span style="color:#dc2626">❌ Tidak Diperpanjang</span>' ?>
+          <span class="badge <?= $diperpanjang ? 'badge-green' : 'badge-red' ?>">
+            <span class="badge-dot"></span> <?= $diperpanjang ? 'Diperpanjang' : 'Tidak Diperpanjang' ?>
+          </span>
         </span>
       </div>
     </div>
@@ -545,25 +543,25 @@ body { background: #e8edf3; padding: 20px; display: block; }
     <!-- Tombol Aksi -->
     <div class="btn-group">
       <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $memoId ?>"
-         class="dl-btn dl-btn-primary" id="btnDownload">
-        📥 Download / Cetak Memo PDF
+         class="dl-btn dl-btn-primary" id="btnDownload" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('printer') ?> Download / Cetak Memo PDF
       </a>
-      <button class="dl-btn dl-btn-outline" onclick="shareOrCopy('<?= APP_URL ?>/cetak_memo.php?id=<?= $memoId ?>')">
-        🔗 Bagikan Link Memo
+      <button class="dl-btn dl-btn-outline" onclick="shareOrCopy('<?= APP_URL ?>/cetak_memo.php?id=<?= $memoId ?>')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('share') ?> Bagikan Tautan Dokumen
       </button>
       <?php if(isAdminLoggedIn()): ?>
-      <a href="<?= APP_URL ?>/admin/detail_memo.php?id=<?= $memoId ?>" class="dl-btn dl-btn-outline">
-        👁️ Lihat di Admin Panel
+      <a href="<?= APP_URL ?>/admin/detail_memo.php?id=<?= $memoId ?>" class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('eye') ?> Lihat di Admin Panel
       </a>
-      <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $penilaian_id ?>" class="dl-btn dl-btn-outline">
-        ← Kembali ke Detail Penilaian
+      <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $penilaian_id ?>" class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('arrow-left') ?> Kembali ke Detail Penilaian
       </a>
       <?php endif; ?>
     </div>
 
     <p class="sukses-note">
-      Simpan atau screenshot halaman ini sebagai bukti pengiriman.<br>
-      Hubungi HRD jika ada pertanyaan.
+      Dokumen ini telah terarsip secara elektronik dalam pangkalan data PT Indopelita.<br>
+      Hubungi Departemen Human Capital untuk koordinasi lebih lanjut.
     </p>
   </div>
 </div>
@@ -573,7 +571,7 @@ function shareOrCopy(url) {
     navigator.share({ title: 'Memo Perpanjangan Kontrak', url: url });
   } else {
     navigator.clipboard.writeText(url).then(function() {
-      alert('Link memo berhasil disalin!');
+      alert('Tautan dokumen memo berhasil disalin ke clipboard.');
     }).catch(function() {
       prompt('Salin link ini:', url);
     });
@@ -584,43 +582,45 @@ function shareOrCopy(url) {
 
 <?php if($alreadyMemo && !$isEditing): ?>
 <!-- ═══════════ SUDAH ADA MEMO ═══════════ -->
-<div class="sukses-wrap" style="background:linear-gradient(135deg,#1e4d8c,#1e6fd9)">
+<div class="sukses-wrap">
   <div class="sukses-card">
-    <div class="sukses-icon" style="background:linear-gradient(135deg,#3b82f6,#1e6fd9)">📋</div>
-    <h2 class="sukses-title">Memo Sudah Dibuat</h2>
+    <div class="sukses-icon" style="background:#f1f5f9;color:#0f172a;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;width:64px;height:64px;border-radius:50%;">
+      <span style="display:inline-flex;transform:scale(1.3)"><?= icon('file-text') ?></span>
+    </div>
+    <h2 class="sukses-title">Memorandum Telah Diterbitkan</h2>
     <p class="sukses-sub">
-      Memo perpanjangan untuk <strong><?= e($data['nama']) ?></strong> sudah pernah disimpan sebelumnya
-      (Nomor: <strong><?= e($alreadyMemo['nomor_memo']) ?></strong>).
+      Memo perpanjangan untuk <strong><?= e($data['nama']) ?></strong> telah teregistrasi dalam sistem
+      (Nomor: <code style="font-size:13px;font-weight:600;color:#0f172a;background:#f1f5f9;padding:2px 8px;border-radius:6px;"><?= e($alreadyMemo['nomor_memo']) ?></code>).
     </p>
     <div class="btn-group">
       <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $alreadyMemo['id'] ?>"
-         class="dl-btn dl-btn-primary">
-        📥 Download / Cetak Memo PDF
+         class="dl-btn dl-btn-primary" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('printer') ?> Download / Cetak Memo PDF
       </a>
       <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $penilaian_id ?>&edit=1"
-         class="dl-btn dl-btn-outline" style="background:#f8fafc;color:#1e40af;border-color:#bfdbfe">
-        ✏️ Edit Data Memo Ini
+         class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('edit') ?> Perbarui / Edit Data Memo
       </a>
       <?php if(isAdminLoggedIn()): ?>
       <a href="<?= APP_URL ?>/admin/detail_memo.php?id=<?= $alreadyMemo['id'] ?>"
-         class="dl-btn dl-btn-outline">
-        👁️ Lihat Detail Memo di Admin
+         class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('eye') ?> Lihat Detail Memo
       </a>
       <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $penilaian_id ?>"
-         class="dl-btn dl-btn-outline">
-        ← Kembali ke Detail Penilaian
+         class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('arrow-left') ?> Detail Penilaian
       </a>
       <a href="<?= APP_URL ?>/admin/penilaian.php"
-         class="dl-btn dl-btn-outline">
-        📋 Daftar Hasil Penilaian
+         class="dl-btn dl-btn-outline" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('clipboard') ?> Daftar Penilaian
       </a>
       <?php else: ?>
-      <button class="dl-btn dl-btn-outline" onclick="shareOrCopy('<?= APP_URL ?>/cetak_memo.php?id=<?= $alreadyMemo['id'] ?>')">
-        🔗 Bagikan Link Memo
+      <button class="dl-btn dl-btn-outline" onclick="shareOrCopy('<?= APP_URL ?>/cetak_memo.php?id=<?= $alreadyMemo['id'] ?>')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <?= icon('share') ?> Bagikan Tautan Dokumen
       </button>
       <?php endif; ?>
     </div>
-    <p class="sukses-note">Hubungi HRD jika ada pertanyaan.</p>
+    <p class="sukses-note">Hubungi Departemen Human Capital jika terdapat revisi administratif.</p>
   </div>
 </div>
 <script>
@@ -629,7 +629,7 @@ function shareOrCopy(url) {
     navigator.share({ title: 'Memo Perpanjangan Kontrak', url: url });
   } else {
     navigator.clipboard.writeText(url).then(function() {
-      alert('Link memo berhasil disalin!');
+      alert('Tautan memo berhasil disalin ke clipboard.');
     }).catch(function() {
       prompt('Salin link ini:', url);
     });
@@ -640,14 +640,14 @@ function shareOrCopy(url) {
 
 <?php if(isAdminLoggedIn()): ?>
 <!-- Admin top breadcrumb -->
-<div style="max-width:900px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #e2e8f0;" class="no-print">
-  <div style="font-size:13px;font-weight:600;color:#0f2d5c;display:flex;align-items:center;gap:6px;">
-    <span>🛡️ <strong>Admin:</strong></span>
-    <span style="color:#64748b"><?= $alreadyMemo ? 'Edit Memo' : 'Pembuatan Memo' ?> untuk <strong><?= e($data['nama']) ?></strong></span>
+<div style="max-width:900px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #e2e8f0;" class="no-print">
+  <div style="font-size:13px;font-weight:600;color:#0f172a;display:flex;align-items:center;gap:8px;">
+    <span style="color:#0284c7;display:inline-flex;align-items:center;gap:6px;"><?= icon('shield') ?> <strong>Admin Portal:</strong></span>
+    <span style="color:#64748b"><?= $alreadyMemo ? 'Edit Memo' : 'Penerbitan Memo' ?> untuk <strong><?= e($data['nama']) ?></strong></span>
   </div>
   <div style="display:flex;gap:8px;">
-    <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $penilaian_id ?>" class="btn btn-light btn-sm" style="font-family:'Inter',sans-serif">← Detail Penilaian</a>
-    <a href="<?= APP_URL ?>/admin/penilaian.php" class="btn btn-light btn-sm" style="font-family:'Inter',sans-serif">📋 Hasil Penilaian</a>
+    <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $penilaian_id ?>" class="btn btn-secondary btn-sm" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('arrow-left') ?> Detail Penilaian</a>
+    <a href="<?= APP_URL ?>/admin/penilaian.php" class="btn btn-secondary btn-sm" style="display:inline-flex;align-items:center;gap:6px;"><?= icon('clipboard') ?> Hasil Penilaian</a>
   </div>
 </div>
 <?php endif; ?>
@@ -656,37 +656,37 @@ function shareOrCopy(url) {
 <div class="page-wrap">
 
   <!-- Top Notice -->
-  <div class="top-notice no-print">
-    <div class="step-badge">Langkah 2 dari 2</div>
+  <div class="top-notice no-print" style="display:flex;align-items:center;gap:16px;">
+    <div class="step-badge">Tahap 2 dari 2</div>
     <div class="step-text">
-      <strong>📄 Lengkapi Memo Perpanjangan Kontrak</strong>
-      Penilaian kinerja berhasil disimpan. Silakan isi data memo untuk pengajuan perpanjangan kontrak.
+      <div style="font-weight:700;color:var(--navy-900);margin-bottom:2px;">Dokumen Memorandum Perpanjangan Kontrak</div>
+      Penilaian kinerja telah diverifikasi. Silakan lengkapi formulir memorandum resmi sebelum penerbitan dokumen final.
     </div>
   </div>
 
   <!-- Progress Steps -->
   <div class="status-bar no-print">
     <div class="status-step">
-      <div class="status-dot done">✓</div>
-      <span style="color:#16a34a">Form Penilaian Selesai</span>
+      <div class="status-dot done" style="display:flex;align-items:center;justify-content:center;"><?= icon('check') ?></div>
+      <span style="color:#059669;font-weight:600;">Penilaian Kinerja</span>
     </div>
     <div class="status-line done"></div>
     <div class="status-step">
       <div class="status-dot active">2</div>
-      <span style="color:#1e6fd9">Isi Memo Perpanjangan</span>
+      <span style="color:#0284c7;font-weight:600;">Penyusunan Memo</span>
     </div>
     <div class="status-line"></div>
     <div class="status-step">
       <div class="status-dot idle">3</div>
-      <span style="color:#94a3b8">Cetak & Selesai</span>
+      <span style="color:#94a3b8">Pengesahan &amp; Cetak</span>
     </div>
   </div>
 
   <!-- Summary Karyawan -->
   <div class="summary-card no-print">
-    <div class="summary-score" style="background:<?= $diperpanjang?'#f0fdf4':'#fef2f2' ?>">
-      <div class="s-num" style="color:<?= $diperpanjang?'#16a34a':'#dc2626' ?>"><?= $data['jumlah_nilai'] ?></div>
-      <div class="s-lbl" style="color:<?= $diperpanjang?'#16a34a':'#dc2626' ?>">/ 50 poin</div>
+    <div class="summary-score" style="background:<?= $diperpanjang?'#ecfdf5':'#fff1f2' ?>">
+      <div class="s-num" style="color:<?= $diperpanjang?'#059669':'#e11d48' ?>"><?= $data['jumlah_nilai'] ?></div>
+      <div class="s-lbl" style="color:<?= $diperpanjang?'#059669':'#e11d48' ?>">/ 50 Poin</div>
     </div>
     <div class="summary-info">
       <div class="summary-name"><?= e($data['nama']) ?></div>
@@ -694,18 +694,18 @@ function shareOrCopy(url) {
     </div>
     <div class="summary-status">
       <?php if($diperpanjang): ?>
-        <span class="badge badge-green" style="font-size:13px;padding:7px 16px">✅ DIPERPANJANG</span>
+        <span class="badge badge-green" style="font-size:12px;padding:6px 14px"><span class="badge-dot"></span> DIPERPANJANG</span>
       <?php else: ?>
-        <span class="badge badge-red" style="font-size:13px;padding:7px 16px">❌ TIDAK DIPERPANJANG</span>
+        <span class="badge badge-red" style="font-size:12px;padding:6px 14px"><span class="badge-dot"></span> TIDAK DIPERPANJANG</span>
       <?php endif; ?>
     </div>
   </div>
 
   <?php if($errors): ?>
   <div class="alert alert-error no-print">
-    <span class="alert-icon">⚠️</span>
+    <span class="alert-icon"><?= icon('alert-circle') ?></span>
     <div>
-      <strong>Harap perbaiki:</strong>
+      <strong>Harap periksa kolom berikut:</strong>
       <ul style="margin:6px 0 0 16px">
         <?php foreach($errors as $e2): ?><li><?= e($e2) ?></li><?php endforeach; ?>
       </ul>
@@ -721,7 +721,7 @@ function shareOrCopy(url) {
 
     <!-- Kiri: Header Memo -->
     <div class="form-card">
-      <div class="section-header"><div class="section-num">1</div>Header Memo</div>
+      <div class="section-header"><div class="section-num">1</div>Header Memorandum</div>
       <div class="form-grid" style="gap:13px;">
         <div class="form-group">
           <label class="form-label">Kota <span class="req">*</span></label>
@@ -733,7 +733,7 @@ function shareOrCopy(url) {
         </div>
         <div class="form-group">
           <label class="form-label">Nomor Memo <span class="req">*</span>
-            <span style="font-weight:400;color:var(--gray-400);font-size:11px"> — contoh: VP/TA/IAS/XI/129/2025</span>
+            <span style="font-weight:400;color:var(--text-muted);font-size:11px"> — contoh: VP/TA/IAS/XI/129/2025</span>
           </label>
           <input type="text" name="nomor_memo" id="nomor_memo" class="form-control" value="<?= e($val_nomor) ?>" placeholder="VP/TA/IAS/XI/129/2025" required oninput="updatePreview()">
         </div>
@@ -755,7 +755,7 @@ function shareOrCopy(url) {
         </div>
         <div class="form-group">
           <label class="form-label">Referensi Kontrak (opsional)
-            <span style="font-weight:400;color:var(--gray-400);font-size:11px"> — contoh: No. 4710005301</span>
+            <span style="font-weight:400;color:var(--text-muted);font-size:11px"> — contoh: No. 4710005301</span>
           </label>
           <input type="text" name="ref_kontrak" class="form-control" value="<?= e($val_ref) ?>" placeholder="Nomor kontrak / NUP (jika ada)" oninput="updatePreview()">
         </div>
@@ -767,7 +767,7 @@ function shareOrCopy(url) {
       <div class="section-header"><div class="section-num">2</div>Detail Kontrak Karyawan</div>
       <div class="form-grid" style="gap:13px;">
         <div class="form-group">
-          <label class="form-label">No. Pegawai <span style="font-weight:400;color:var(--gray-400);font-size:11px">(opsional)</span></label>
+          <label class="form-label">No. Pegawai <span style="font-weight:400;color:var(--text-muted);font-size:11px">(opsional)</span></label>
           <input type="text" name="no_pegawai" class="form-control"
                  value="<?= e($val_no_pegawai) ?>" oninput="updatePreview()"
                  placeholder="NIK / No. Pegawai di perusahaan">
@@ -792,34 +792,34 @@ function shareOrCopy(url) {
         <!-- ── Status Perpanjangan ── -->
         <div class="form-group">
           <label class="form-label">Status Perpanjangan <span class="req">*</span>
-            <span style="font-weight:400;color:var(--gray-400);font-size:11px"> — akan muncul sebagai centang (✓) di kolom memo</span>
+            <span style="font-weight:400;color:var(--text-muted);font-size:11px"> — akan muncul sebagai centang (✓) di tabel memo</span>
           </label>
-          <div style="display:flex;gap:10px;margin-top:4px;">
+          <div style="display:flex;gap:10px;margin-top:6px;">
             <label id="lbl-diperpanjang" style="
               flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
-              padding:11px 14px;border-radius:10px;cursor:pointer;font-weight:700;
-              font-size:13.5px;border:2px solid;
+              padding:11px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+              font-size:13.5px;border:1.5px solid;
               transition:all 0.18s;
-              <?= $diperpanjang ? 'background:#f0fdf4;border-color:#22c55e;color:#15803d;' : 'background:#f8fafc;border-color:#e2e8f0;color:#64748b;' ?>
+              <?= $diperpanjang ? 'background:#ecfdf5;border-color:#10b981;color:#047857;' : 'background:#f8fafc;border-color:#e2e8f0;color:#64748b;' ?>
             ">
               <input type="radio" name="status_memo" value="Diperpanjang"
                      id="radio_diperpanjang"
                      <?= $diperpanjang ? 'checked' : '' ?>
                      onchange="syncStatusToggle()" style="display:none">
-              <span style="font-size:18px;">✅</span> Diperpanjang
+              <span style="display:inline-flex;align-items:center;"><?= icon('check-circle') ?></span> Diperpanjang
             </label>
             <label id="lbl-tidak" style="
               flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
-              padding:11px 14px;border-radius:10px;cursor:pointer;font-weight:700;
-              font-size:13.5px;border:2px solid;
+              padding:11px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+              font-size:13.5px;border:1.5px solid;
               transition:all 0.18s;
-              <?= !$diperpanjang ? 'background:#fef2f2;border-color:#ef4444;color:#b91c1c;' : 'background:#f8fafc;border-color:#e2e8f0;color:#64748b;' ?>
+              <?= !$diperpanjang ? 'background:#fff1f2;border-color:#f43f5e;color:#be123c;' : 'background:#f8fafc;border-color:#e2e8f0;color:#64748b;' ?>
             ">
               <input type="radio" name="status_memo" value="Tidak Diperpanjang"
                      id="radio_tidak"
                      <?= !$diperpanjang ? 'checked' : '' ?>
                      onchange="syncStatusToggle()" style="display:none">
-              <span style="font-size:18px;">❌</span> Tidak Diperpanjang
+              <span style="display:inline-flex;align-items:center;"><?= icon('x-circle') ?></span> Tidak Diperpanjang
             </label>
           </div>
         </div>
@@ -833,7 +833,7 @@ function shareOrCopy(url) {
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;" class="no-print">
 
     <div class="form-card">
-      <div class="section-header"><div class="section-num">3</div>Pengirim Memo</div>
+      <div class="section-header"><div class="section-num">3</div>Pengirim Memorandum</div>
       <div class="form-grid" style="gap:13px;">
         <div class="form-group">
           <label class="form-label">Jabatan Pengirim <span class="req">*</span></label>
@@ -856,7 +856,7 @@ function shareOrCopy(url) {
                  placeholder="Nama pengirim memo">
         </div>
         <div class="form-group">
-          <label class="form-label">Tembusan <span style="font-weight:400;color:var(--gray-400);font-size:11px">(pisah per baris)</span></label>
+          <label class="form-label">Tembusan <span style="font-weight:400;color:var(--text-muted);font-size:11px">(pisah per baris)</span></label>
           <textarea name="tembusan" class="form-control" rows="3"
                     oninput="updatePreview()"
                     placeholder="HCGA Manager&#10;Finance VP&#10;Arsip"><?= e($val_tembusan) ?></textarea>
@@ -865,7 +865,7 @@ function shareOrCopy(url) {
     </div>
 
     <div class="form-card">
-      <div class="section-header"><div class="section-num">4</div>Penandatangan Memo</div>
+      <div class="section-header"><div class="section-num">4</div>Otoritas Pengesahan Memo</div>
       <div class="form-grid" style="gap:13px;">
         <div class="form-group">
           <label class="form-label">Jabatan Penandatangan <span class="req">*</span></label>
@@ -879,8 +879,9 @@ function shareOrCopy(url) {
                  required oninput="updatePreview()"
                  placeholder="Nama lengkap penandatangan">
         </div>
-        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 14px;font-size:12.5px;color:#92400e;line-height:1.6">
-          💡 <strong>Info:</strong> Tanda tangan fisik akan dibubuhkan saat memo dicetak dan ditandatangani secara langsung.
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:var(--radius);padding:12px 14px;font-size:12.5px;color:#475569;line-height:1.6;display:flex;align-items:flex-start;gap:8px;">
+          <span style="color:#0284c7;flex-shrink:0;margin-top:2px;"><?= icon('info') ?></span>
+          <div><strong>Pengesahan Fisik:</strong> Tanda tangan fisik dan stempel perusahaan akan dibubuhkan langsung saat dokumen dicetak.</div>
         </div>
       </div>
     </div>
@@ -890,12 +891,12 @@ function shareOrCopy(url) {
   <!-- ── Section 5: Isi Memo ── -->
   <div style="margin-bottom:20px;" class="no-print">
     <div class="form-card">
-      <div class="section-header"><div class="section-num">5</div>Isi Paragraf Memo
-        <span style="font-weight:400;font-size:12px;color:#64748b;margin-left:6px">— teks berubah otomatis sesuai status, bisa diedit manual</span>
+      <div class="section-header"><div class="section-num">5</div>Redaksi Paragraf Memorandum
+        <span style="font-weight:400;font-size:12px;color:var(--text-muted);margin-left:6px">— disinkronkan otomatis sesuai status perpanjangan</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div class="form-group">
-          <label class="form-label">Paragraf 1 — Pembuka</label>
+          <label class="form-label">Paragraf 1 — Pembuka Dokumen</label>
           <textarea name="isi_paragraf1" id="isi_paragraf1" class="form-control" rows="4"
                     oninput="updatePreview()"
                     placeholder="Teks paragraf pertama memo..."
@@ -904,7 +905,7 @@ function shareOrCopy(url) {
             : 'Bersama ini kami sampaikan daftar nama para Personel yang masa kontraknya telah berakhir dan tidak dapat diperpanjang, dikarenakan berbagai pertimbangan perusahaan.')) ?></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label">Paragraf 2 — Pengantar Tabel</label>
+          <label class="form-label">Paragraf 2 — Pengantar Tabel Nominatif</label>
           <textarea name="isi_paragraf2" id="isi_paragraf2" class="form-control" rows="4"
                     oninput="updatePreview()"
                     placeholder="Teks paragraf kedua memo..."
@@ -913,8 +914,9 @@ function shareOrCopy(url) {
             : 'Maka sehubungan dengan hal tersebut diatas, dengan berat hati kami sampaikan bahwa masa kerja personel berikut tidak dapat diperpanjang, dengan keterangan sebagai berikut :')) ?></textarea>
         </div>
       </div>
-      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1e40af;margin-top:10px;">
-        💡 <strong>Tips:</strong> Saat Anda mengubah status Diperpanjang / Tidak Diperpanjang di atas, teks ini akan otomatis disesuaikan. Anda tetap bisa mengedit secara manual.
+      <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 14px;font-size:12px;color:#0369a1;margin-top:10px;display:flex;align-items:center;gap:8px;">
+        <span style="flex-shrink:0"><?= icon('info') ?></span>
+        <span>Redaksi kalimat tersinkronisasi dinamis ketika status perpanjangan dialihkan, dan tetap dapat disesuaikan manual sesuai kebutuhan.</span>
       </div>
     </div>
   </div>
@@ -922,8 +924,8 @@ function shareOrCopy(url) {
   <!-- PREVIEW MEMO LIVE -->
   <div style="margin-bottom:20px;">
     <div class="memo-preview" id="memoPreview">
-      <div class="memo-preview-header no-print">
-        👁 Preview Memo (update otomatis saat Anda mengetik)
+      <div class="memo-preview-header no-print" style="display:flex;align-items:center;gap:8px;">
+        <?= icon('eye') ?> Live Preview Dokumen Memorandum Resmi (terkalkulasi otomatis)
       </div>
       <div class="memo-body" id="memoBodyContent">
         <!-- Diisi oleh JS -->
@@ -934,15 +936,15 @@ function shareOrCopy(url) {
   <!-- SUBMIT -->
   <div style="text-align:center;margin-bottom:30px;" class="no-print">
     <button type="submit" class="btn btn-primary btn-lg"
-            style="background:linear-gradient(135deg,#1e6fd9,#0f2d5c);box-shadow:0 4px 16px rgba(30,111,217,0.4);padding:14px 48px;font-size:16px;">
-      💾 Simpan & Buat Memo
+            style="padding:14px 44px;font-size:15px;display:inline-flex;align-items:center;gap:10px;justify-content:center;margin:0 auto;">
+      <?= icon('save') ?> Terbitkan &amp; Simpan Memorandum
     </button>
-    <div style="font-size:12px;color:#94a3b8;margin-top:10px;font-family:'Inter',sans-serif">
-      Setelah disimpan, Anda bisa mencetak memo dalam format siap tanda tangan.
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;">
+      Dokumen memorandum yang diterbitkan akan langsung terintegrasi dengan lembar penilaian terkait.
     </div>
     <div class="skip-link" style="margin-top:12px">
-      <a href="<?= APP_URL ?>/form_memo_skip.php?token=<?= urlencode($token) ?>" onclick="return confirm('Lewati pengisian memo? Data penilaian sudah tersimpan.')">
-        Lewati pengisian memo →
+      <a href="<?= APP_URL ?>/form_memo_skip.php?token=<?= urlencode($token) ?>" onclick="return confirm('Lewati pengisian memo? Data penilaian sudah tersimpan.')" style="color:var(--text-muted);font-size:13px;text-decoration:none;">
+        Lewati pengisian memo &rarr;
       </a>
     </div>
   </div>

@@ -21,10 +21,10 @@ $pageTitle='Ganti Password'; $activePage='password';
 require_once __DIR__ . '/../includes/admin_header.php';
 ?>
 <div style="max-width:440px;">
-  <?php if($msg): ?><div class="alert alert-success"><span class="alert-icon">✅</span> <?= e($msg) ?></div><?php endif; ?>
-  <?php if($err): ?><div class="alert alert-error"><span class="alert-icon">⚠️</span> <?= e($err) ?></div><?php endif; ?>
+  <?php if($msg): ?><div class="alert alert-success"><?= icon('check-circle') ?> <?= e($msg) ?></div><?php endif; ?>
+  <?php if($err): ?><div class="alert alert-error"><?= icon('alert-triangle') ?> <?= e($err) ?></div><?php endif; ?>
   <div class="form-card">
-    <div class="form-card-header">🔑 Ganti Password Admin</div>
+    <div class="form-card-header"><?= icon('key') ?> Ganti Password Admin</div>
     <form method="POST">
       <div class="form-grid" style="gap:14px;">
         <div class="form-group">
@@ -39,7 +39,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
           <label class="form-label">Konfirmasi Password Baru <span class="req">*</span></label>
           <input type="password" name="confirm" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Simpan Password Baru</button>
+        <button type="submit" class="btn btn-primary btn-block"><?= icon('save') ?> Simpan Password Baru</button>
       </div>
     </form>
   </div>

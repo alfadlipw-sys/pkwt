@@ -13,7 +13,7 @@ function logoIndopelita(string $size = 'md', string $extraStyle = ''): void {
         'print'   => 'height:44px;',
     ];
     $style = ($sizes[$size] ?? $sizes['md']) . $extraStyle;
-    $src   = APP_URL . '/assets/img/logo.png';
-    echo "<img src=\"{$src}\" alt=\"Indopelita\" style=\"{$style}display:block;\">";
+    $src   = APP_URL . '/assets/img/logo_indopelita.jpg';
+    echo "<img src=\"{$src}\" alt=\"Indopelita\" style=\"{$style}display:block;object-fit:contain;\">";
 }
 ?>

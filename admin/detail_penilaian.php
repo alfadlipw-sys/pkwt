@@ -54,51 +54,55 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <?= e($r['jabatan']) ?> &nbsp;·&nbsp; Periode: <strong style="color:var(--blue)"><?= e($r['periode']) ?></strong>
     </div>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-    <a href="penilaian.php" class="btn btn-light">← Kembali</a>
-    <a href="edit_karyawan.php?id=<?= $r['kid'] ?>" class="btn btn-light">👤 Profil</a>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+    <a href="penilaian.php" class="btn btn-light btn-sm"><?= icon('chevron') ?> Kembali</a>
+    <a href="edit_karyawan.php?id=<?= $r['kid'] ?>" class="btn btn-light btn-sm"><?= icon('user') ?> Profil</a>
     <?php if(!empty($r['memo_id'])): ?>
-      <a href="detail_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-warning" title="Lihat Memo yang sudah dibuat">📄 Lihat Memo</a>
-      <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-primary" target="_blank" title="Cetak Memo PDF">🖨️ Cetak Memo</a>
-      <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $id ?>&edit=1" class="btn btn-light" title="Edit Memo">✏️ Edit Memo</a>
+      <a href="detail_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-warning btn-sm" title="Lihat Memo yang sudah dibuat"><?= icon('file-text') ?> Lihat Memo</a>
+      <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-primary btn-sm" target="_blank" title="Cetak Memo PDF"><?= icon('printer') ?> Cetak Memo</a>
+      <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $id ?>&edit=1" class="btn btn-light btn-sm" title="Edit Memo"><?= icon('edit') ?> Edit Memo</a>
     <?php else: ?>
-      <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $id ?>" class="btn btn-success" style="box-shadow:0 2px 10px rgba(22,163,74,0.35);font-weight:700;">📝 Buat Memo</a>
+      <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $id ?>" class="btn btn-success btn-sm" style="font-weight:700;"><?= icon('plus') ?> Buat Memo</a>
     <?php endif; ?>
-    <a href="cetak_penilaian.php?id=<?= $id ?>&auto=1" class="btn btn-navy" target="_blank">🖨️ Cetak / Save PDF</a>
-    <a href="hapus_penilaian.php?id=<?= $id ?>" class="btn btn-danger" onclick="return confirm('Hapus data ini? Tidak dapat dibatalkan.')">🗑️ Hapus</a>
+    <a href="cetak_penilaian.php?id=<?= $id ?>&auto=1" class="btn btn-navy btn-sm" target="_blank"><?= icon('printer') ?> Cetak / PDF</a>
+    <a href="hapus_penilaian.php?id=<?= $id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data ini? Tidak dapat dibatalkan.')"><?= icon('trash') ?> Hapus</a>
   </div>
 </div>
 
 <!-- Section 1: Top Summary -->
-<div style="display:grid;grid-template-columns:200px 1fr 260px;gap:18px;margin-bottom:20px;">
+<div style="display:grid;grid-template-columns:180px 1fr 240px;gap:14px;margin-bottom:16px;">
 
   <!-- Nilai Box -->
-  <div class="card" style="text-align:center;padding:28px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-400);margin-bottom:8px;">NILAI TOTAL</div>
-    <div style="font-size:64px;font-weight:900;line-height:1;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>">
+  <div class="card" style="text-align:center;padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-400);margin-bottom:6px;">NILAI TOTAL</div>
+    <div style="font-size:38px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>">
       <?= $r['jumlah_nilai'] ?>
     </div>
-    <div style="font-size:12px;color:var(--gray-400);margin-top:4px;">dari 50 poin</div>
-    <div style="width:100%;background:var(--gray-100);border-radius:99px;height:8px;margin:14px 0 12px;">
-      <div style="height:8px;border-radius:99px;width:<?= ($r['jumlah_nilai']/50*100) ?>%;background:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>;"></div>
+    <div style="font-size:11.5px;color:var(--gray-400);margin-top:4px;">dari 50 poin</div>
+    <div style="width:100%;background:var(--gray-100);border-radius:99px;height:6px;margin:10px 0 10px;">
+      <div style="height:6px;border-radius:99px;width:<?= ($r['jumlah_nilai']/50*100) ?>%;background:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>;"></div>
     </div>
     <?php if($r['status_perpanjangan']==='Diperpanjang'): ?>
-      <span class="badge badge-green" style="font-size:12px;padding:5px 14px;">✅ DIPERPANJANG</span>
+      <span class="badge badge-green" style="font-size:11px;padding:3px 10px;"><span class="badge-dot"></span> DIPERPANJANG</span>
     <?php else: ?>
-      <span class="badge badge-red" style="font-size:12px;padding:5px 14px;">❌ TIDAK DIPERPANJANG</span>
+      <span class="badge badge-red" style="font-size:11px;padding:3px 10px;"><span class="badge-dot"></span> TIDAK DIPERPANJANG</span>
     <?php endif; ?>
-    <div style="font-size:10px;color:var(--gray-400);margin-top:8px;">Threshold ≥ 28</div>
+    <div style="font-size:9.5px;color:var(--gray-400);margin-top:6px;">Ambang Batas ≥ 28</div>
   </div>
 
   <!-- Radar Chart -->
   <div class="card" style="padding:18px 20px;">
-    <div style="font-size:13px;font-weight:700;color:var(--gray-700);margin-bottom:12px;">🕸️ Profil Kompetensi</div>
+    <div style="font-size:13px;font-weight:700;color:var(--gray-700);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+      <?= icon('activity') ?> Profil Kompetensi
+    </div>
     <canvas id="radarChart" height="200"></canvas>
   </div>
 
   <!-- Info Karyawan -->
   <div class="card" style="padding:18px 20px;">
-    <div style="font-size:13px;font-weight:700;color:var(--gray-700);border-bottom:1px solid var(--gray-100);padding-bottom:10px;margin-bottom:12px;">👤 Info Karyawan</div>
+    <div style="font-size:13px;font-weight:700;color:var(--gray-700);border-bottom:1px solid var(--gray-100);padding-bottom:10px;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+      <?= icon('user') ?> Info Karyawan
+    </div>
     <?php foreach([
       ['NIK',         e($r['nik'])],
       ['Jabatan',     e($r['jabatan'])],
@@ -126,11 +130,15 @@ require_once __DIR__ . '/../includes/admin_header.php';
     </div>
     <?php if(!empty($r['tanda_tangan'])): ?>
     <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--gray-100);">
-      <div style="font-size:10px;color:var(--gray-400);margin-bottom:5px">✍️ TANDA TANGAN DIGITAL</div>
+      <div style="font-size:10px;color:var(--gray-400);margin-bottom:5px;display:flex;align-items:center;gap:4px;">
+        <?= icon('edit') ?> TANDA TANGAN DIGITAL
+      </div>
       <div style="border:1px solid var(--gray-200);border-radius:8px;padding:4px;background:#fff;">
         <img src="<?= e($r['tanda_tangan']) ?>" alt="TTD" style="max-width:100%;max-height:60px;display:block;">
       </div>
-      <div style="font-size:10px;color:var(--green);margin-top:3px">✅ Terverifikasi</div>
+      <div style="font-size:11px;color:var(--green);margin-top:4px;display:flex;align-items:center;gap:4px;">
+        <?= icon('check-circle') ?> Terverifikasi
+      </div>
     </div>
     <?php endif; ?>
     <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-50);">
@@ -144,7 +152,7 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <!-- Section 2: Nilai Per Kriteria -->
 <div class="card" style="margin-bottom:20px;overflow:hidden;">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">📋</div>Nilai Per Kriteria</div>
+    <div class="card-title"><?= icon('clipboard') ?> Nilai Per Kriteria</div>
     <div style="font-size:12px;color:var(--gray-400)">10 faktor × maks 5 = 50 poin</div>
   </div>
   <table class="tbl">
@@ -165,8 +173,8 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <tr <?= $val<=2?'style="background:#fef2f2;"':'' ?>>
         <td style="color:var(--gray-300);font-size:12px"><?= $i+1 ?></td>
         <td><span style="font-weight:600;font-size:13px"><?= e($k['label']) ?></span></td>
-        <td style="text-align:center"><span style="font-size:26px;font-weight:900;color:<?= $c ?>"><?= $val ?></span></td>
-        <td><span style="background:<?= $c ?>20;color:<?= $c ?>;padding:4px 12px;border-radius:99px;font-size:11.5px;font-weight:700;border:1px solid <?= $c ?>40"><?= $l ?></span></td>
+        <td style="text-align:center"><span style="font-size:24px;font-weight:900;color:<?= $c ?>"><?= $val ?></span></td>
+        <td><span style="background:<?= $c ?>18;color:<?= $c ?>;padding:4px 12px;border-radius:99px;font-size:11.5px;font-weight:700;border:1px solid <?= $c ?>35"><?= $l ?></span></td>
         <td>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1;max-width:140px;background:var(--gray-100);border-radius:99px;height:7px;">
@@ -180,12 +188,12 @@ require_once __DIR__ . '/../includes/admin_header.php';
     </tbody>
     <tfoot>
       <tr style="background:var(--gray-50);border-top:2px solid var(--gray-200);">
-        <td colspan="2" style="padding:13px 16px;text-align:right;font-weight:700;color:var(--gray-600)">JUMLAH NILAI</td>
-        <td style="text-align:center;padding:13px"><span style="font-size:30px;font-weight:900;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $r['jumlah_nilai'] ?></span></td>
-        <td colspan="2" style="padding:13px 16px">
+        <td colspan="2" style="padding:9px 12px;text-align:right;font-weight:700;color:var(--gray-600);font-size:12px;">JUMLAH NILAI</td>
+        <td style="text-align:center;padding:9px 12px"><span style="font-size:18px;font-weight:800;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $r['jumlah_nilai'] ?></span></td>
+        <td colspan="2" style="padding:9px 12px">
           <?= $r['status_perpanjangan']==='Diperpanjang'
-            ? '<span class="badge badge-green" style="font-size:12px;padding:5px 14px">✅ Diperpanjang (≥28)</span>'
-            : '<span class="badge badge-red" style="font-size:12px;padding:5px 14px">❌ Tidak Diperpanjang (&lt;28)</span>' ?>
+            ? '<span class="badge badge-green" style="font-size:11px;padding:3px 10px"><span class="badge-dot"></span> Diperpanjang (≥28)</span>'
+            : '<span class="badge badge-red" style="font-size:11px;padding:3px 10px"><span class="badge-dot"></span> Tidak Diperpanjang (&lt;28)</span>' ?>
         </td>
       </tr>
     </tfoot>
@@ -195,14 +203,14 @@ require_once __DIR__ . '/../includes/admin_header.php';
 <!-- Section 3: Kualitatif -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;">
   <?php foreach([
-    ['🌟','#f0fdf4','#16a34a','Bidang Unggul / Menonjol',$r['bidang_unggul']??''],
-    ['📈','#fffbeb','#d97706','Perlu Diperhatikan & Ditingkatkan',$r['bidang_tingkatkan']??''],
-    ['🎓','#eff6ff','#1d4ed8','Rencana Pelatihan / Pengembangan',$r['rencana_pelatihan']??''],
-    ['💬','#f5f3ff','#6d28d9','Pesan / Komentar Tambahan',$r['pesan_tambahan']??''],
+    ['award','#f0fdf4','#16a34a','Bidang Unggul / Menonjol',$r['bidang_unggul']??''],
+    ['trending-up','#fffbeb','#d97706','Perlu Diperhatikan & Ditingkatkan',$r['bidang_tingkatkan']??''],
+    ['award','#eff6ff','#1d4ed8','Rencana Pelatihan / Pengembangan',$r['rencana_pelatihan']??''],
+    ['message','#f5f3ff','#6d28d9','Pesan / Komentar Tambahan',$r['pesan_tambahan']??''],
   ] as [$ico,$bg,$col,$ttl,$val]): ?>
   <div class="card" style="padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-      <span style="width:28px;height:28px;background:<?= $bg ?>;color:<?= $col ?>;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0"><?= $ico ?></span>
+      <span style="width:28px;height:28px;background:<?= $bg ?>;color:<?= $col ?>;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><?= icon($ico) ?></span>
       <span style="font-size:13px;font-weight:700;color:var(--gray-700)"><?= $ttl ?></span>
     </div>
     <?php if($val): ?>
@@ -220,17 +228,17 @@ require_once __DIR__ . '/../includes/admin_header.php';
   <!-- Permohonan Perpanjangan -->
   <div class="card" style="padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
-      <span style="width:28px;height:28px;background:#e0f2fe;color:#0369a1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📋</span>
+      <span style="width:28px;height:28px;background:#e0f2fe;color:#0369a1;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><?= icon('file-text') ?></span>
       <span style="font-size:13px;font-weight:700;color:var(--gray-700)">Permohonan untuk Diperpanjang / Tidak Diperpanjang</span>
     </div>
     <?php if(!empty($r['permohonan_perpanjangan'])): ?>
       <?php if($r['permohonan_perpanjangan']==='Diperpanjang'): ?>
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid #16a34a;border-radius:10px;background:#dcfce7;font-size:14px;font-weight:700;color:#15803d;">
-          ✅ Diperpanjang
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid #86efac;border-radius:8px;background:#f0fdf4;font-size:13.5px;font-weight:700;color:#15803d;">
+          <?= icon('check-circle') ?> Diperpanjang
         </div>
       <?php else: ?>
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid #dc2626;border-radius:10px;background:#fee2e2;font-size:14px;font-weight:700;color:#b91c1c;">
-          ❌ Tidak Diperpanjang
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid #fca5a5;border-radius:8px;background:#fef2f2;font-size:13.5px;font-weight:700;color:#b91c1c;">
+          <?= icon('x-circle') ?> Tidak Diperpanjang
         </div>
       <?php endif; ?>
     <?php else: ?>

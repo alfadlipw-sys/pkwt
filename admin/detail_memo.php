@@ -47,21 +47,23 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
     </div>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;">
-    <a href="memo.php" class="btn btn-light">← Kembali</a>
-    <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $id ?>" target="_blank" class="btn btn-navy">🖨️ Cetak Memo</a>
-    <a href="hapus_memo.php?id=<?= $id ?>" class="btn btn-danger"
-       onclick="return confirm('Yakin hapus memo ini? Tindakan tidak dapat dibatalkan.')">🗑 Hapus</a>
+    <a href="memo.php" class="btn btn-light btn-sm"><?= icon('chevron') ?> Kembali</a>
+    <a href="<?= APP_URL ?>/cetak_memo.php?id=<?= $id ?>" target="_blank" class="btn btn-navy btn-sm"><?= icon('printer') ?> Cetak Memo</a>
+    <a href="hapus_memo.php?id=<?= $id ?>" class="btn btn-danger btn-sm"
+       onclick="return confirm('Yakin hapus memo ini? Tindakan tidak dapat dibatalkan.')"><?= icon('trash') ?> Hapus</a>
   </div>
 </div>
 
 <!-- Status Banner -->
-<div style="background:<?= $diperpanjang ? '#f0fdf4' : '#fef2f2' ?>;border:1px solid <?= $diperpanjang ? '#86efac' : '#fca5a5' ?>;border-radius:12px;padding:14px 20px;margin-bottom:22px;display:flex;align-items:center;gap:16px;">
-  <div style="font-size:28px"><?= $diperpanjang ? '✅' : '❌' ?></div>
+<div style="background:<?= $diperpanjang ? '#f0fdf4' : '#fef2f2' ?>;border:1px solid <?= $diperpanjang ? '#86efac' : '#fca5a5' ?>;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
+  <div style="color:<?= $diperpanjang ? '#16a34a' : '#dc2626' ?>;display:flex;align-items:center;">
+    <?= icon($diperpanjang ? 'check-circle' : 'x-circle') ?>
+  </div>
   <div>
-    <div style="font-size:15px;font-weight:700;color:<?= $diperpanjang ? '#15803d' : '#b91c1c' ?>">
+    <div style="font-size:14px;font-weight:700;color:<?= $diperpanjang ? '#15803d' : '#b91c1c' ?>">
       <?= $diperpanjang ? 'Kontrak Diperpanjang' : 'Kontrak Tidak Diperpanjang' ?>
     </div>
-    <div style="font-size:13px;color:var(--gray-500)">
+    <div style="font-size:12px;color:var(--gray-500);margin-top:2px">
       Nilai penilaian: <strong><?= $m['jumlah_nilai'] ?>/50</strong>
       &nbsp;·&nbsp; Periode: <strong><?= e($m['periode']) ?></strong>
       &nbsp;·&nbsp; Dinilai oleh: <?= e($m['penilai_nama']) ?>
@@ -69,17 +71,17 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
   </div>
   <div style="margin-left:auto">
     <?= $m['is_printed']
-      ? '<span class="badge badge-green" style="font-size:12px;padding:5px 14px">🖨️ Sudah Dicetak</span>'
-      : '<span class="badge badge-gray" style="font-size:12px;padding:5px 14px">📋 Belum Dicetak</span>' ?>
+      ? '<span class="badge badge-green" style="font-size:11px;padding:3px 10px"><span class="badge-dot"></span> Sudah Dicetak</span>'
+      : '<span class="badge badge-gray" style="font-size:11px;padding:3px 10px"><span class="badge-dot"></span> Belum Dicetak</span>' ?>
   </div>
 </div>
 
 <!-- Grid 2 kolom -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
 
   <!-- Data Memo -->
   <div class="form-card">
-    <div class="form-card-header">📄 Data Memo</div>
+    <div class="form-card-header"><?= icon('file-text') ?> Data Memo</div>
     <?php
     $rowsMemo = [
         ['Nomor Memo',       e($m['nomor_memo'])],
@@ -100,7 +102,7 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
 
   <!-- Data Karyawan & Kontrak -->
   <div class="form-card">
-    <div class="form-card-header">👤 Karyawan & Kontrak</div>
+    <div class="form-card-header"><?= icon('user') ?> Karyawan & Kontrak</div>
     <?php
     $rowsKar = [
         ['Nama',               '<strong>' . e($m['nama']) . '</strong>'],
@@ -127,7 +129,7 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
 
   <!-- Penandatangan -->
   <div class="form-card">
-    <div class="form-card-header">✍️ Penandatangan</div>
+    <div class="form-card-header"><?= icon('edit') ?> Penandatangan</div>
     <div style="font-size:16px;font-weight:800;color:var(--gray-800);margin-bottom:4px"><?= e($m['ttd_memo_nama']) ?></div>
     <div style="font-size:13px;color:var(--gray-500);margin-bottom:14px"><?= e($m['ttd_memo_jabatan']) ?></div>
     <div class="divider"></div>
@@ -136,7 +138,7 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
 
   <!-- Tembusan -->
   <div class="form-card">
-    <div class="form-card-header">📬 Tembusan</div>
+    <div class="form-card-header"><?= icon('send') ?> Tembusan</div>
     <?php
     $tembArr = $m['tembusan'] ? array_filter(array_map('trim', explode("\n", $m['tembusan']))) : [];
     if ($tembArr):
@@ -152,7 +154,7 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
 
   <!-- Info Penilaian -->
   <div class="form-card">
-    <div class="form-card-header">📊 Info Penilaian</div>
+    <div class="form-card-header"><?= icon('bar-chart') ?> Info Penilaian</div>
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <span style="font-size:12px;color:var(--gray-400)">Total Nilai</span>
@@ -161,8 +163,8 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <span style="font-size:12px;color:var(--gray-400)">Status</span>
         <?= $diperpanjang
-          ? '<span class="badge badge-green">✅ Diperpanjang</span>'
-          : '<span class="badge badge-red">❌ Tidak Diperpanjang</span>' ?>
+          ? '<span class="badge badge-green"><span class="badge-dot"></span> Diperpanjang</span>'
+          : '<span class="badge badge-red"><span class="badge-dot"></span> Tidak Diperpanjang</span>' ?>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <span style="font-size:12px;color:var(--gray-400)">Penilai</span>
@@ -174,7 +176,7 @@ $diperpanjang = $m['status_perpanjangan'] === 'Diperpanjang';
       </div>
       <div class="divider"></div>
       <a href="<?= APP_URL ?>/admin/detail_penilaian.php?id=<?= $m['penilaian_id'] ?>" class="btn btn-light btn-sm" style="width:100%;text-align:center;justify-content:center;">
-        📋 Lihat Data Penilaian Lengkap
+        <?= icon('eye') ?> Lihat Data Penilaian Lengkap
       </a>
     </div>
   </div>

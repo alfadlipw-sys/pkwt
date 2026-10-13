@@ -5,7 +5,9 @@ $db    = db();
 $token = trim($_GET['token'] ?? '');
 
 // Validasi token
-if (!$token) { die('<div style="font-family:sans-serif;text-align:center;padding:80px;"><h2>❌ Link tidak valid.</h2></div>'); }
+if (!$token) {
+    die('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Akses Tidak Sah</title><link rel="stylesheet" href="' . APP_URL . '/assets/css/app.css"></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);"><div style="background:#fff;border-radius:14px;padding:32px 28px;text-align:center;max-width:440px;box-shadow:var(--shadow-md);border:1px solid var(--border-light);"><div style="width:48px;height:48px;border-radius:50%;background:#fff1f2;color:#e11d48;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">' . icon('alert-circle') . '</div><h2 style="color:var(--navy-900);font-size:18px;font-weight:700;margin-bottom:8px;">Tautan Tidak Valid</h2><p style="color:var(--text-muted);font-size:13px;line-height:1.55;">Tautan penilaian yang Anda akses tidak terdaftar atau tidak memiliki otorisasi keamanan.</p></div></body></html>');
+}
 
 $stmt = $db->prepare("SELECT ft.*, k.nik, k.nama, k.jabatan, k.atasan_langsung, k.mulai_bekerja FROM form_tokens ft JOIN karyawan k ON k.id=ft.karyawan_id WHERE ft.token=?");
 $stmt->bind_param('s', $token);
@@ -13,28 +15,45 @@ $stmt->execute();
 $ft = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-if (!$ft) { die('<div style="font-family:sans-serif;text-align:center;padding:80px;"><h2>❌ Link tidak ditemukan atau sudah tidak berlaku.</h2></div>'); }
+if (!$ft) {
+    die('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Tautan Tidak Ditemukan</title><link rel="stylesheet" href="' . APP_URL . '/assets/css/app.css"></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);"><div style="background:#fff;border-radius:14px;padding:32px 28px;text-align:center;max-width:440px;box-shadow:var(--shadow-md);border:1px solid var(--border-light);"><div style="width:48px;height:48px;border-radius:50%;background:#fff1f2;color:#e11d48;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">' . icon('alert-circle') . '</div><h2 style="color:var(--navy-900);font-size:18px;font-weight:700;margin-bottom:8px;">Tautan Tidak Ditemukan</h2><p style="color:var(--text-muted);font-size:13px;line-height:1.55;">Tautan evaluasi ini tidak ditemukan dalam pangkalan data atau telah dicabut hak aksesnya.</p></div></body></html>');
+}
 if ($ft['is_submitted']) { ?>
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Sudah Diisi</title>
-<style>body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;}
-.box{background:#fff;border-radius:12px;padding:50px 40px;text-align:center;max-width:420px;box-shadow:0 4px 20px rgba(0,0,0,0.1);}
-.icon{font-size:60px;margin-bottom:16px;} h2{color:#16a34a;} p{color:#555;font-size:14px;}</style>
-</head><body><div class="box"><div class="icon">✅</div>
-<h2>Form Sudah Diisi</h2>
-<p>Penilaian untuk karyawan <strong><?= e($ft['nama']) ?></strong> periode <strong><?= e($ft['periode']) ?></strong> telah berhasil disimpan.</p>
-<p style="margin-top:20px;font-size:12px;color:#aaa">Terima kasih telah mengisi penilaian.</p>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Penilaian Selesai — PT Indopelita</title>
+<link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
+<style>
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;font-family:'Plus Jakarta Sans',var(--font-body);}
+.box{background:#fff;border-radius:14px;padding:32px 28px;text-align:center;max-width:440px;width:100%;box-shadow:var(--shadow-md);border:1px solid var(--border-light);}
+.icon-wrap{width:48px;height:48px;border-radius:50%;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+h2{color:var(--navy-900);font-size:18px;font-weight:700;margin-bottom:8px;}
+p{color:var(--text-muted);font-size:13px;line-height:1.55;}
+</style>
+</head><body><div class="box"><div class="icon-wrap"><?= icon('check-circle') ?></div>
+<h2>Penilaian Telah Disimpan</h2>
+<p>Formulir evaluasi untuk karyawan <strong><?= e($ft['nama']) ?></strong> periode <strong><?= e($ft['periode']) ?></strong> telah berhasil diverifikasi dan disimpan ke arsip HRD.</p>
+<div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--border-light);font-size:11.5px;color:var(--text-muted);">
+  PT Indopelita Aircraft Industries &bull; Aviation & Industrial Field Services
+</div>
 </div></body></html>
 <?php exit; }
 
 if (strtotime($ft['expires_at']) < time()) { ?>
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Link Kadaluarsa</title>
-<style>body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;}
-.box{background:#fff;border-radius:12px;padding:50px 40px;text-align:center;max-width:420px;box-shadow:0 4px 20px rgba(0,0,0,0.1);}
-.icon{font-size:60px;} h2{color:#dc2626;} p{color:#555;font-size:14px;}</style>
-</head><body><div class="box"><div class="icon">⏰</div>
-<h2>Link Sudah Kadaluarsa</h2>
-<p>Link penilaian ini sudah tidak aktif sejak <strong><?= date('d/m/Y H:i', strtotime($ft['expires_at'])) ?></strong>.</p>
-<p>Silakan hubungi HRD untuk mendapatkan link baru.</p>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Masa Berlaku Berakhir — PT Indopelita</title>
+<link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
+<style>
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;font-family:'Plus Jakarta Sans',var(--font-body);}
+.box{background:#fff;border-radius:14px;padding:32px 28px;text-align:center;max-width:440px;width:100%;box-shadow:var(--shadow-md);border:1px solid var(--border-light);}
+.icon-wrap{width:48px;height:48px;border-radius:50%;background:#fff1f2;color:#e11d48;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+h2{color:var(--navy-900);font-size:18px;font-weight:700;margin-bottom:8px;}
+p{color:var(--text-muted);font-size:13px;line-height:1.55;}
+</style>
+</head><body><div class="box"><div class="icon-wrap"><?= icon('clock') ?></div>
+<h2>Tautan Telah Kedaluwarsa</h2>
+<p>Batas waktu pengisian untuk tautan ini telah berakhir pada <strong><?= date('d/m/Y H:i', strtotime($ft['expires_at'])) ?> WIB</strong>.</p>
+<p style="margin-top:8px;">Silakan berkoordinasi dengan Departemen Human Capital untuk penerbitan token evaluasi yang baru.</p>
+<div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--border-light);font-size:11.5px;color:var(--text-muted);">
+  PT Indopelita Aircraft Industries &bull; HC Information Portal
+</div>
 </div></body></html>
 <?php exit; }
 
@@ -150,47 +169,43 @@ if ($success): ?>
 <title>Terima Kasih — PKWT Indopelita</title>
 <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <style>
-body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0f2d5c 0%,#091e40 60%,#0a2252 100%);margin:0;padding:20px;}
-.success-box{background:#fff;border-radius:20px;padding:50px 44px;text-align:center;max-width:500px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,0.35);}
-.check-circle{width:84px;height:84px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:38px;box-shadow:0 8px 24px rgba(22,163,74,0.35);}
-.success-box h2{color:#0f2d5c;font-size:23px;font-weight:800;margin-bottom:10px;}
-.success-box p{color:#64748b;font-size:14px;line-height:1.7;margin-bottom:0;}
-.info-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin:22px 0;text-align:left;}
-.info-row{display:flex;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:13px;}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#090e1a;margin:0;padding:20px;font-family:'Plus Jakarta Sans',var(--font-body);}
+.success-box{background:#fff;border-radius:14px;padding:32px 28px;text-align:center;max-width:460px;width:100%;box-shadow:0 20px 45px rgba(0,0,0,0.3);border:1px solid #e2e8f0;}
+.check-circle{width:52px;height:52px;background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.success-box h2{color:#0f172a;font-size:18px;font-weight:700;margin-bottom:6px;}
+.success-box p{color:#64748b;font-size:12.5px;line-height:1.55;margin-bottom:0;}
+.info-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin:18px 0;text-align:left;}
+.info-row{display:flex;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12.5px;align-items:center;}
 .info-row:last-child{border-bottom:none;}
-.info-row .lk{color:#94a3b8;width:130px;flex-shrink:0;}
-.info-row .vk{font-weight:600;color:#1e293b;}
-.nilai-big{font-size:26px;font-weight:900;color:<?= isset($vals)&&array_sum($vals??[])>=28?'#16a34a':'#dc2626' ?>;}
-.status-pill{display:inline-block;padding:5px 16px;border-radius:99px;font-size:12.5px;font-weight:700;
-  background:<?= isset($vals)&&array_sum($vals??[])>=28?'#dcfce7':'#fee2e2' ?>;
-  color:<?= isset($vals)&&array_sum($vals??[])>=28?'#15803d':'#b91c1c' ?>;
-  border:1.5px solid <?= isset($vals)&&array_sum($vals??[])>=28?'#86efac':'#fca5a5' ?>;}
-.footer-note{font-size:11.5px;color:#cbd5e1;margin-top:16px;}
+.info-row .lk{color:#64748b;width:130px;flex-shrink:0;}
+.info-row .vk{font-weight:600;color:#0f172a;}
+.nilai-big{font-size:18px;font-weight:800;color:<?= isset($vals)&&array_sum($vals??[])>=28?'#059669':'#e11d48' ?>;}
+.footer-note{font-size:11px;color:#94a3b8;margin-top:14px;}
 </style>
 </head>
 <body>
 <div class="success-box">
-  <div class="check-circle">✅</div>
-  <h2>Penilaian Berhasil Dikirim!</h2>
-  <p>Data penilaian kinerja telah berhasil disimpan ke sistem HRD Indopelita.</p>
+  <div class="check-circle"><span style="display:inline-flex;transform:scale(1.4)"><?= icon('check') ?></span></div>
+  <h2>Penilaian Berhasil Dikirim</h2>
+  <p>Data penilaian kinerja telah berhasil diverifikasi dan tersimpan ke sistem HRD PT Indopelita.</p>
   <div class="info-card">
     <div class="info-row"><span class="lk">Karyawan</span><span class="vk"><?= e($ft['nama']) ?></span></div>
     <div class="info-row"><span class="lk">Jabatan</span><span class="vk"><?= e($ft['jabatan']) ?></span></div>
     <div class="info-row"><span class="lk">Periode</span><span class="vk"><?= e($ft['periode']) ?></span></div>
     <div class="info-row">
       <span class="lk">Total Nilai</span>
-      <span class="vk"><span class="nilai-big"><?= array_sum($vals ?? []) ?></span><span style="color:#94a3b8;font-size:13px;font-weight:400"> / 50</span></span>
+      <span class="vk"><span class="nilai-big"><?= array_sum($vals ?? []) ?></span><span style="color:#94a3b8;font-size:13px;font-weight:400"> / 50 Poin</span></span>
     </div>
     <div class="info-row">
-      <span class="lk">Status</span>
+      <span class="lk">Status Rekomendasi</span>
       <span class="vk">
-        <span class="status-pill">
-          <?= (isset($vals)&&array_sum($vals??[])>=28) ? '✅ Diperpanjang' : '❌ Tidak Diperpanjang' ?>
+        <span class="badge <?= (isset($vals)&&array_sum($vals??[])>=28)?'badge-green':'badge-red' ?>">
+          <span class="badge-dot"></span> <?= (isset($vals)&&array_sum($vals??[])>=28) ? 'Diperpanjang' : 'Tidak Diperpanjang' ?>
         </span>
       </span>
     </div>
   </div>
-  <p class="footer-note">Form ini sudah tidak bisa diisi ulang.<br>Hubungi HRD jika ada pertanyaan.</p>
+  <p class="footer-note">Formulir evaluasi telah terkunci secara permanen.<br>Hubungi Departemen Human Capital untuk informasi lanjutan.</p>
 </div>
 </body>
 </html>
@@ -202,24 +217,43 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;bac
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Form Penilaian Kinerja PKWT – <?= e($ft['nama']) ?></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
+body{
+  font-family:'Times New Roman',Times,serif;
+  background:#0f172a;
+  padding:24px 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
 
-/* TOP BAR */
-.top-notice{background:#1a3a6b;color:#fff;text-align:center;padding:10px;font-family:'Segoe UI',sans-serif;font-size:13px;border-radius:6px;margin-bottom:16px;}
+#mainForm{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
 /* PAGE */
-.page{background:#fff;width:210mm;margin:0 auto 20px;padding:14mm 14mm 14mm 18mm;box-shadow:0 2px 16px rgba(0,0,0,0.3);position:relative;}
+.page{
+  background:#fff;
+  width:210mm;
+  max-width:100%;
+  margin:0 auto 20px;
+  padding:14mm 14mm 14mm 18mm;
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  position:relative;
+  border-radius:2px;
+}
 
 /* HEADER */
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;}
-
-
-
-
-
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 
 .form-title{font-size:12.5pt;font-weight:bold;text-transform:uppercase;}
 .form-subtitle{font-size:11pt;font-weight:bold;text-transform:uppercase;}
@@ -256,35 +290,50 @@ body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
 .error-box ul{margin:6px 0 0 18px;}
 
 /* Submit btn */
-.submit-wrap{text-align:center;margin:20px 0;font-family:'Segoe UI',sans-serif;}
-.btn-submit{background:#1a3a6b;color:#fff;border:none;padding:14px 50px;font-size:16px;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;letter-spacing:0.3px;}
-.btn-submit:hover{background:#0f2449;}
+.submit-wrap{text-align:center;margin:28px 0 40px;font-family:'Plus Jakarta Sans',var(--font-body);}
 
 /* total display */
 .total-display{font-size:22pt;font-weight:900;text-align:center;}
 .total-status{text-align:center;font-size:10pt;}
 
-@media print{body{background:#fff;padding:0;}.top-notice,.submit-wrap{display:none!important;}.page{box-shadow:none;margin:0;page-break-after:always;}.sig-toolbar{display:none!important;}}
+@media print{
+  body{background:#fff;padding:0;display:block;}
+  .top-notice-bar,.submit-wrap,.no-print,.floating-download,.form-top-actions{display:none!important;}
+  .page{box-shadow:none;margin:0;page-break-after:always;border-radius:0;max-width:none;}
+  .sig-toolbar{display:none!important;}
+}
 .sig-wrap{position:relative;border:1.5px solid #aaa;border-radius:4px;background:#fff;margin:4px 0;touch-action:none;}
 .sig-canvas{display:block;width:100%;cursor:crosshair;border-radius:4px;}
 .sig-toolbar{display:flex;gap:6px;margin-top:4px;align-items:center;}
-.sig-btn{font-family:'Segoe UI',sans-serif;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;border:1px solid #ccc;background:#f8f8f8;}
+.sig-btn{font-family:'Inter',sans-serif;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;border:1px solid #ccc;background:#f8f8f8;}
 .sig-btn:hover{background:#e8e8e8;}
 .sig-btn.clear{color:#c00;border-color:#fca5a5;}
-.sig-hint{font-size:9px;color:#aaa;font-family:'Segoe UI',sans-serif;flex:1;text-align:right;}
-.sig-required{color:#dc2626;font-size:9px;font-family:'Segoe UI',sans-serif;display:none;margin-top:2px;}
+.sig-hint{font-size:9px;color:#aaa;font-family:'Inter',sans-serif;flex:1;text-align:right;}
+.sig-required{color:#dc2626;font-size:9px;font-family:'Inter',sans-serif;display:none;margin-top:2px;}
 </style>
 </head>
 <body>
 
-<div class="top-notice">
-  🔒 Form ini bersifat RAHASIA. Link ini unik untuk satu kali pengisian saja.
+<!-- Floating Download Button on the Right -->
+<div class="floating-download no-print" style="position:fixed;top:18px;right:24px;z-index:999;">
+  <button type="button" onclick="window.print()" class="btn btn-light" title="Download Form (PDF / Cetak)" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;font-size:12.5px;font-weight:600;background:#ffffff;color:#0f172a;border:1px solid #cbd5e1;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.2);cursor:pointer;transition:all 0.15s;">
+    <?= icon('download') ?> Download Form
+  </button>
+</div>
+
+<!-- Top Action Bar (Download Form di Kanan Atas Form) -->
+<div class="form-top-actions no-print" style="width:210mm;max-width:100%;margin:0 auto 12px;display:flex;justify-content:flex-end;align-items:center;">
+  <button type="button" onclick="window.print()" class="btn btn-light" style="display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-size:12.5px;font-weight:600;background:#ffffff;color:#0f172a;border:1px solid #cbd5e1;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);cursor:pointer;transition:all 0.15s;">
+    <?= icon('download') ?> Download / Cetak Form
+  </button>
 </div>
 
 <?php if($errors): ?>
-<div class="error-box" style="width:210mm;margin:0 auto 12px;font-family:'Segoe UI',sans-serif;">
-  <strong>⚠️ Harap perbaiki kesalahan berikut:</strong>
-  <ul><?php foreach($errors as $e): ?><li><?= e($e) ?></li><?php endforeach; ?></ul>
+<div class="error-box no-print" style="width:210mm;max-width:100%;margin:0 auto 16px;background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;border-radius:10px;padding:14px 18px;font-family:'Inter',sans-serif;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+  <div style="display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px;color:#e11d48;">
+    <?= icon('alert-circle') ?> Harap perbaiki kesalahan berikut sebelum mengirim:
+  </div>
+  <ul style="margin:4px 0 0 22px;line-height:1.6;"><?php foreach($errors as $e): ?><li><?= e($e) ?></li><?php endforeach; ?></ul>
 </div>
 <?php endif; ?>
 
@@ -299,7 +348,7 @@ body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
       <div class="form-subtitle">(SANGAT RAHASIA)</div>
     </div>
     <div style="text-align:right;">
-      <img src="<?= APP_URL ?>/assets/img/logo.png" alt="Indopelita" style="height:40px;display:block;margin-left:auto;">
+      <img src="<?= APP_URL ?>/assets/img/logo_indopelita.jpg" alt="Indopelita" style="height:46px;max-height:50px;width:auto;display:block;margin-left:auto;object-fit:contain;">
     </div>
   </div>
 
@@ -418,7 +467,7 @@ body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
       <td style="padding-left:20px;">Predikat</td></tr>
     </table>
     <div style="text-align:right;">
-      <img src="<?= APP_URL ?>/assets/img/logo.png" alt="Indopelita" style="height:40px;display:block;margin-left:auto;">
+      <img src="<?= APP_URL ?>/assets/img/logo_indopelita.jpg" alt="Indopelita" style="height:42px;max-height:46px;width:auto;display:block;margin-left:auto;object-fit:contain;">
     </div>
   </div>
 
@@ -502,7 +551,7 @@ body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
     <div style="font-size:10pt;font-weight:bold;">Ringkasan Penilaian Kerja</div>
     <div style="text-align:right;">
-      <img src="<?= APP_URL ?>/assets/img/logo.png" alt="Indopelita" style="height:40px;display:block;margin-left:auto;">
+      <img src="<?= APP_URL ?>/assets/img/logo_indopelita.jpg" alt="Indopelita" style="height:42px;max-height:46px;width:auto;display:block;margin-left:auto;object-fit:contain;">
     </div>
   </div>
 
@@ -637,12 +686,17 @@ body{font-family:'Times New Roman',Times,serif;background:#c8c8c8;padding:20px;}
   </table>
 </div>
 
-<!-- SUBMIT BUTTON -->
-<div class="submit-wrap">
-  <button type="submit" class="btn-submit" onclick="return confirmSubmit()">
-    ✅ Kirim Penilaian
+<!-- SUBMIT & DOWNLOAD BUTTONS (DI KANAN SEBELUM SUBMIT) -->
+<div class="submit-wrap no-print" style="width:210mm;max-width:100%;margin:20px auto 10px;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;padding:0 2px;">
+  <button type="button" onclick="window.print()" class="btn btn-light" style="padding:10px 20px;font-size:13px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:#ffffff;color:#0f172a;border:1px solid #cbd5e1;border-radius:8px;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,0.08);transition:all 0.15s ease;">
+    <?= icon('download') ?> Download Form (PDF / Cetak)
   </button>
-  <div style="font-size:12px;color:#888;margin-top:10px;">Form hanya bisa disubmit sekali. Pastikan semua nilai sudah terisi dengan benar.</div>
+  <button type="submit" class="btn btn-primary" onclick="return confirmSubmit()" style="padding:10px 24px;font-size:13.5px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:600;box-shadow:0 2px 8px rgba(2,132,199,0.25);transition:all 0.15s ease;">
+    <?= icon('send') ?> Kirim &amp; Teruskan Penilaian Kinerja
+  </button>
+</div>
+<div style="width:210mm;max-width:100%;margin:0 auto 36px;text-align:right;font-size:11.5px;color:#94a3b8;padding:0 2px;" class="no-print">
+  Formulir dapat diunduh (PDF / cetak) terlebih dahulu sebelum dikirim. Data yang telah dikirim bersifat permanen.
 </div>
 
 </form>

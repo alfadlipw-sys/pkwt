@@ -30,23 +30,25 @@ $pageTitle='Hasil Penilaian'; $activePage='penilaian';
 require_once __DIR__ . '/../includes/admin_header.php';
 ?>
 
-<?php if($flash): ?><div class="alert alert-success"><span class="alert-icon">✅</span><?= $flash ?></div><?php endif; ?>
+<?php if($flash): ?><div class="alert alert-success"><?= icon('check-circle') ?> <?= $flash ?></div><?php endif; ?>
 
 <!-- Mini Stats -->
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px;">
   <?php foreach([
-    ['Total Penilaian',$stats['total'],'📋','var(--blue)'],
-    ['Diperpanjang',$stats['lanjut'],'✅','var(--green)'],
-    ['Tidak Diperpanjang',$stats['tidak'],'❌','var(--red)'],
-    ['Rata-rata Nilai',number_format($stats['avg_nilai']??0,1),'📊','var(--blue)'],
-    ['Nilai Tertinggi',$stats['max_nilai']??0,'🏆','var(--green)'],
-    ['Nilai Terendah',$stats['min_nilai']??0,'📉','var(--amber)'],
-  ] as [$lbl,$val,$ico,$col]): ?>
-  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:12px;">
-    <div style="font-size:22px"><?= $ico ?></div>
+    ['Total Penilaian', $stats['total'], 'clipboard', 'var(--blue)', 'var(--blue-pale)'],
+    ['Diperpanjang', $stats['lanjut'], 'check-circle', 'var(--green)', 'var(--green-light)'],
+    ['Tidak Diperpanjang', $stats['tidak'], 'x-circle', 'var(--red)', 'var(--red-light)'],
+    ['Rata-rata Nilai', number_format($stats['avg_nilai']??0,1), 'bar-chart', 'var(--blue)', 'var(--blue-pale)'],
+    ['Nilai Tertinggi', $stats['max_nilai']??0, 'award', 'var(--green)', 'var(--green-light)'],
+    ['Nilai Terendah', $stats['min_nilai']??0, 'trending-down', 'var(--amber)', 'var(--amber-light)'],
+  ] as [$lbl,$val,$ico,$col,$bg]): ?>
+  <div class="metric-card">
+    <div class="metric-icon-wrap" style="background:<?= $bg ?>;color:<?= $col ?>;">
+      <?= icon($ico) ?>
+    </div>
     <div>
-      <div style="font-size:22px;font-weight:800;color:<?= $col ?>"><?= $val ?></div>
-      <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px"><?= $lbl ?></div>
+      <div class="metric-value" style="color:<?= $col ?>"><?= $val ?></div>
+      <div class="metric-label"><?= $lbl ?></div>
     </div>
   </div>
   <?php endforeach; ?>
@@ -71,32 +73,32 @@ require_once __DIR__ . '/../includes/admin_header.php';
       <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:5px">Status</div>
       <select name="status" class="form-control" style="width:170px">
         <option value="">Semua Status</option>
-        <option value="Diperpanjang" <?= $fStatus==='Diperpanjang'?'selected':'' ?>>✅ Diperpanjang</option>
-        <option value="Tidak Diperpanjang" <?= $fStatus==='Tidak Diperpanjang'?'selected':'' ?>>❌ Tidak Diperpanjang</option>
+        <option value="Diperpanjang" <?= $fStatus==='Diperpanjang'?'selected':'' ?>>Diperpanjang</option>
+        <option value="Tidak Diperpanjang" <?= $fStatus==='Tidak Diperpanjang'?'selected':'' ?>>Tidak Diperpanjang</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary btn-sm" style="align-self:flex-end">🔍 Filter</button>
+    <button type="submit" class="btn btn-primary btn-sm" style="align-self:flex-end"><?= icon('filter') ?> Filter</button>
     <a href="penilaian.php" class="btn btn-light btn-sm" style="align-self:flex-end">Reset</a>
     <?php $expQuery = http_build_query(array_filter(['bulan'=>$fBulan, 'periode'=>$fPeriode, 'status'=>$fStatus])); ?>
-    <a href="laporan.php<?= $expQuery ? '?'.$expQuery : '' ?>" class="btn btn-success btn-sm" style="align-self:flex-end;margin-left:auto">📊 Ekspor</a>
+    <a href="laporan.php<?= $expQuery ? '?'.$expQuery : '' ?>" class="btn btn-outline btn-sm" style="align-self:flex-end;margin-left:auto"><?= icon('download') ?> Ekspor</a>
   </form>
 </div>
 
 <!-- Batch Action Bar -->
-<div id="batchBar" style="display:none;background:#e0f2fe;border:1.5px solid #7dd3fc;border-radius:10px;padding:12px 18px;margin-bottom:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-  <div style="font-size:13px;font-weight:700;color:#0369a1;">
-    📌 <span id="selectedCount">0</span> data hasil penilaian dipilih
+<div id="batchBar" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:12px 18px;margin-bottom:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+  <div style="font-size:13px;font-weight:700;color:#0284c7;display:flex;align-items:center;gap:6px;">
+    <?= icon('check-circle') ?> <span id="selectedCount">0</span> data hasil penilaian dipilih
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;">
-    <button type="button" onclick="batchPrintPDFCombined()" class="btn btn-navy btn-sm">🖨️ Cetak / Save PDF Terpilih (Gabungan 1 File)</button>
-    <button type="button" onclick="batchPrintPDFSeparate()" class="btn btn-success btn-sm">📄 Cetak / Save PDF Masing-Masing (Terpisah)</button>
+    <button type="button" onclick="batchPrintPDFCombined()" class="btn btn-navy btn-sm"><?= icon('printer') ?> Cetak / PDF Terpilih (Gabungan 1 File)</button>
+    <button type="button" onclick="batchPrintPDFSeparate()" class="btn btn-success btn-sm"><?= icon('file-text') ?> Cetak / PDF Masing-Masing</button>
   </div>
 </div>
 
 <!-- Table -->
 <div class="card">
   <div class="card-header">
-    <div class="card-title"><div class="card-title-icon">📋</div>Hasil Penilaian (<?= $total ?> data)</div>
+    <div class="card-title"><?= icon('clipboard') ?> Hasil Penilaian (<?= $total ?> data)</div>
   </div>
   <div class="tbl-wrap">
     <table class="tbl">
@@ -121,25 +123,25 @@ require_once __DIR__ . '/../includes/admin_header.php';
           </td>
           <td style="font-size:12px;color:var(--gray-500)"><?= e($r['periode']) ?></td>
           <td style="text-align:center">
-            <span style="font-size:24px;font-weight:900;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $r['jumlah_nilai'] ?></span>
+            <span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:<?= $r['jumlah_nilai']>=28?'var(--green)':'var(--red)' ?>"><?= $r['jumlah_nilai'] ?></span>
             <div style="font-size:10px;color:var(--gray-400)">/ 50</div>
           </td>
           <td style="text-align:center">
             <?= $r['status_perpanjangan']==='Diperpanjang'
-              ? '<span class="badge badge-green">✅ Diperpanjang</span>'
-              : '<span class="badge badge-red">❌ Ditolak</span>' ?>
+              ? '<span class="badge badge-green"><span class="badge-dot"></span> Diperpanjang</span>'
+              : '<span class="badge badge-red"><span class="badge-dot"></span> Tidak Diperpanjang</span>' ?>
           </td>
           <td style="font-size:12px"><?= e($r['penilai_nama']) ?></td>
           <td style="font-size:12px;color:var(--gray-500)"><?= formatTanggal($r['tanggal_penilaian']) ?></td>
           <td onclick="event.stopPropagation()">
             <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;">
-              <a href="detail_penilaian.php?id=<?= $r['id'] ?>" class="btn btn-primary btn-xs" title="Lihat Detail">👁 Detail</a>
+              <a href="detail_penilaian.php?id=<?= $r['id'] ?>" class="btn btn-primary btn-xs" title="Lihat Detail"><?= icon('eye') ?> Detail</a>
               <?php if(!empty($r['memo_id'])): ?>
-                <a href="detail_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-warning btn-xs" title="Memo sudah dibuat (<?= e($r['nomor_memo']) ?>)">📄 Memo</a>
+                <a href="detail_memo.php?id=<?= $r['memo_id'] ?>" class="btn btn-warning btn-xs" title="Memo sudah dibuat (<?= e($r['nomor_memo']) ?>)"><?= icon('file-text') ?> Memo</a>
               <?php else: ?>
-                <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $r['id'] ?>" class="btn btn-success btn-xs" title="Buat Memo Perpanjangan Kontrak" style="font-weight:700;">📝 Buat Memo</a>
+                <a href="<?= APP_URL ?>/form_memo.php?penilaian_id=<?= $r['id'] ?>" class="btn btn-success btn-xs" title="Buat Memo Perpanjangan Kontrak" style="font-weight:700;"><?= icon('plus') ?> Buat Memo</a>
               <?php endif; ?>
-              <a href="cetak_penilaian.php?id=<?= $r['id'] ?>&auto=1" target="_blank" class="btn btn-navy btn-xs" title="Cetak / Download PDF Rapi">🖨️ Cetak PDF</a>
+              <a href="cetak_penilaian.php?id=<?= $r['id'] ?>&auto=1" target="_blank" class="btn btn-navy btn-xs" title="Cetak / Download PDF Rapi"><?= icon('printer') ?> Cetak PDF</a>
             </div>
           </td>
         </tr>
