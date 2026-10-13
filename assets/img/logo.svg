@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" role="img" aria-label="Indopelita">
+  <!-- ── Propeller / Baling-baling ── -->
+  <!-- Center hub -->
+  <ellipse cx="58" cy="60" rx="9" ry="9" fill="#888"/>
+
+  <!-- Blade 1 – top-right (merah) -->
+  <path d="M62 52 L72 28 L80 32 L68 54Z" fill="#cc2229"/>
+  <!-- Blade 2 – right-top (kuning-hijau / olive) -->
+  <path d="M67 55 L90 38 L94 46 L70 60Z" fill="#8e9e1a"/>
+  <!-- Blade 3 – right (biru) -->
+  <path d="M67 60 L95 52 L96 61 L68 65Z" fill="#1e5fa8"/>
+  <!-- Blade 4 – right-bottom (abu) -->
+  <path d="M65 65 L90 75 L87 83 L62 68Z" fill="#808080"/>
+  <!-- Blade 5 – bottom-right (abu) -->
+  <path d="M59 68 L72 93 L64 96 L54 70Z" fill="#808080"/>
+  <!-- Blade 6 – bottom (abu) -->
+  <path d="M53 67 L51 95 L43 94 L46 67Z" fill="#808080"/>
+  <!-- Blade 7 – bottom-left (abu) -->
+  <path d="M48 65 L26 82 L22 75 L46 61Z" fill="#808080"/>
+  <!-- Blade 8 – left-bottom (abu) -->
+  <path d="M46 60 L18 65 L18 57 L46 56Z" fill="#808080"/>
+  <!-- Blade 9 – left-top (abu) -->
+  <path d="M48 55 L24 40 L28 33 L52 50Z" fill="#808080"/>
+  <!-- Blade 10 – top-left (abu) -->
+  <path d="M53 51 L46 24 L54 22 L58 50Z" fill="#808080"/>
+  <!-- Blade 11 – top (abu) -->
+  <path d="M58 50 L58 22 L66 24 L62 50Z" fill="#808080"/>
+
+  <!-- Center hub overlay (putih pemisah) -->
+  <ellipse cx="58" cy="60" rx="9" ry="9" fill="#9a9a9a"/>
+  <ellipse cx="58" cy="60" rx="5.5" ry="5.5" fill="#f0f0f0"/>
+
+  <!-- ── Wordmark ── -->
+  <text x="112" y="68"
+        font-family="'Arial Black','Franklin Gothic Heavy','Impact',sans-serif"
+        font-size="46"
+        font-weight="900"
+        fill="#1b3a6b"
+        letter-spacing="-0.5">INDOPELITA</text>
+
+  <!-- Tagline -->
+  <text x="113" y="90"
+        font-family="Arial,sans-serif"
+        font-size="14.5"
+        fill="#1b3a6b"
+        letter-spacing="0.2">A member of <tspan font-weight="700">PELITA AIR</tspan></text>
+</svg>

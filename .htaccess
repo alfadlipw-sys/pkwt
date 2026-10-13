@@ -1,0 +1,35 @@
+Options -Indexes
+ErrorDocument 404 /pkwt/404.php
+
+# Protect config file
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Protect database.sql
+<Files "database.sql">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Protect README
+<Files "README.md">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Block direct access to includes folder
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^includes/ - [F,L]
+</IfModule>
+
+# PHP settings
+<IfModule mod_php.c>
+    php_value upload_max_filesize 5M
+    php_value post_max_size 5M
+    php_value max_execution_time 60
+    php_value session.cookie_httponly 1
+    php_value session.use_strict_mode 1
+</IfModule>

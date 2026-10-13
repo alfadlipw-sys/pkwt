@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\pkwt\\\\admin\\\\token.php\")",
+      "Bash(php -r ' *)"
+    ]
+  }
+}
